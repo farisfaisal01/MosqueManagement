@@ -5,7 +5,7 @@
 namespace MosqueManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,8 +16,8 @@ namespace MosqueManagement.Migrations
                 {
                     donationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    donationSuccess = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    donationAmount = table.Column<double>(type: "float", nullable: false)
+                    donationSuccess = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    donationAmount = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,9 +30,9 @@ namespace MosqueManagement.Migrations
                 {
                     marketId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    marketName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    marketDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    marketContact = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    marketName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    marketDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    marketContact = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,10 +45,10 @@ namespace MosqueManagement.Migrations
                 {
                     serviceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    serviceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    serviceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    servicePrice = table.Column<double>(type: "float", nullable: false),
-                    serviceEquipments = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    serviceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    serviceDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    servicePrice = table.Column<double>(type: "float", nullable: true),
+                    serviceEquipments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     serviceCategory = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -62,15 +62,15 @@ namespace MosqueManagement.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    role = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,10 +83,10 @@ namespace MosqueManagement.Migrations
                 {
                     positionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    positionTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    positionDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    staffName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    staffContact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    positionTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    positionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    staffName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    staffContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     serviceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -105,8 +105,8 @@ namespace MosqueManagement.Migrations
                 {
                     paymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    paymentSuccess = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    amount = table.Column<double>(type: "float", nullable: false),
+                    paymentSuccess = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    amount = table.Column<double>(type: "float", nullable: true),
                     Userid = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -125,13 +125,13 @@ namespace MosqueManagement.Migrations
                 {
                     formId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    equipment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approval = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    package = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    equipment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approval = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    package = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Userid = table.Column<int>(type: "int", nullable: true),
                     paymentId = table.Column<int>(type: "int", nullable: true),
                     serviceId = table.Column<int>(type: "int", nullable: true)
@@ -162,16 +162,16 @@ namespace MosqueManagement.Migrations
                 {
                     formId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    eventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    eventDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    startDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    endDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approval = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    package = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    eventName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    eventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    startDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    endDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approval = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    package = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Userid = table.Column<int>(type: "int", nullable: true),
                     paymentId = table.Column<int>(type: "int", nullable: true),
                     serviceId = table.Column<int>(type: "int", nullable: true)
@@ -202,14 +202,14 @@ namespace MosqueManagement.Migrations
                 {
                     formId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    eventDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    eventTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approval = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    package = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    eventDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    eventTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approval = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalMonth = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    approvalYear = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    package = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Userid = table.Column<int>(type: "int", nullable: true),
                     paymentId = table.Column<int>(type: "int", nullable: true),
                     serviceId = table.Column<int>(type: "int", nullable: true)
@@ -240,7 +240,7 @@ namespace MosqueManagement.Migrations
                 {
                     scheduleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    occupied = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    occupied = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClassformId = table.Column<int>(type: "int", nullable: true),
                     RentalformId = table.Column<int>(type: "int", nullable: true),
                     SocialformId = table.Column<int>(type: "int", nullable: true)

@@ -12,59 +12,52 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230416074953_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230424165249_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("MosqueManagement.Models.Class", b =>
                 {
-                    b.Property<int>("formId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("formId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.Property<string>("approval")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalMonth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalYear")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("equipment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("feedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("package")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("serviceId")
@@ -83,17 +76,16 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Donation", b =>
                 {
-                    b.Property<int>("donationId")
+                    b.Property<int?>("donationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("donationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("donationId"));
 
-                    b.Property<double>("donationAmount")
+                    b.Property<double?>("donationAmount")
                         .HasColumnType("float");
 
                     b.Property<string>("donationSuccess")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("donationId");
@@ -103,29 +95,25 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.HumanResource", b =>
                 {
-                    b.Property<int>("positionId")
+                    b.Property<int?>("positionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("positionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("positionId"));
 
                     b.Property<string>("positionDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("positionTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("serviceId")
                         .HasColumnType("int");
 
                     b.Property<string>("staffContact")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("staffName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("positionId");
@@ -137,22 +125,19 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Market", b =>
                 {
-                    b.Property<int>("marketId")
+                    b.Property<int?>("marketId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("marketId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("marketId"));
 
                     b.Property<string>("marketContact")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("marketDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("marketName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("marketId");
@@ -162,20 +147,19 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Payment", b =>
                 {
-                    b.Property<int>("paymentId")
+                    b.Property<int?>("paymentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("paymentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("paymentId"));
 
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
 
-                    b.Property<double>("amount")
+                    b.Property<double?>("amount")
                         .HasColumnType("float");
 
                     b.Property<string>("paymentSuccess")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("paymentId");
@@ -187,59 +171,49 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Rental", b =>
                 {
-                    b.Property<int>("formId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("formId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.Property<string>("approval")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalMonth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalYear")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("endDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eventDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eventName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("feedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("package")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("serviceId")
                         .HasColumnType("int");
 
                     b.Property<string>("startDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("formId");
@@ -255,11 +229,11 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Schedule", b =>
                 {
-                    b.Property<int>("scheduleId")
+                    b.Property<int?>("scheduleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("scheduleId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("scheduleId"));
 
                     b.Property<int?>("ClassformId")
                         .HasColumnType("int");
@@ -271,7 +245,6 @@ namespace MosqueManagement.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("occupied")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("scheduleId");
@@ -287,28 +260,25 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Service", b =>
                 {
-                    b.Property<int>("serviceId")
+                    b.Property<int?>("serviceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("serviceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("serviceId"));
 
                     b.Property<int>("serviceCategory")
                         .HasColumnType("int");
 
                     b.Property<string>("serviceDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("serviceEquipments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("serviceName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("servicePrice")
+                    b.Property<double?>("servicePrice")
                         .HasColumnType("float");
 
                     b.HasKey("serviceId");
@@ -318,48 +288,40 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Social", b =>
                 {
-                    b.Property<int>("formId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("formId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.Property<string>("approval")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalMonth")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("approvalYear")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eventDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eventTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("feedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("package")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("serviceId")
@@ -378,46 +340,37 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int?>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
 
                     b.Property<string>("address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ic")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("role")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MosqueManagement.Data;
-
+using MosqueManagement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
