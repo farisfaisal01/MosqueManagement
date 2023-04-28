@@ -12,8 +12,8 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230424165249_initialMigration")]
-    partial class initialMigration
+    [Migration("20230428174316_denullifyServiceId")]
+    partial class denullifyServiceId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,11 +260,14 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Service", b =>
                 {
-                    b.Property<int?>("serviceId")
+                    b.Property<int>("serviceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("serviceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("serviceId"));
+
+                    b.Property<string>("serviceAttachment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("serviceCategory")
                         .HasColumnType("int");

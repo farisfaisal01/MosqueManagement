@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosqueManagement.Data;
 
@@ -11,9 +12,11 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230427160451_addServiceAttachment")]
+    partial class addServiceAttachment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,11 +260,11 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Service", b =>
                 {
-                    b.Property<int>("serviceId")
+                    b.Property<int?>("serviceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("serviceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("serviceId"));
 
                     b.Property<string>("serviceAttachment")
                         .HasColumnType("nvarchar(max)");

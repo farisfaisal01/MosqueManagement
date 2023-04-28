@@ -12,7 +12,7 @@ namespace MosqueManagement.Models
         public double ? servicePrice { get; set; }
         public string ? serviceEquipments { get; set; }
         public Category serviceCategory { get; set; }
-        //public string serviceAttachment { get; set; }
+        public string ? serviceAttachment { get; set; }
 
         //Relationships
         public List<Social> ? Socials { get; set; }
