@@ -21,8 +21,8 @@ namespace MosqueManagement.Controllers
 
         public IActionResult Detail(int serviceId)
         {
-            Service service = _context.Services.FirstOrDefault(c => c.serviceId == serviceId);
-            return View(service);
+            Service services = _context.Services.FirstOrDefault(c => c.serviceId == serviceId);
+            return View(services);
         }
     }
 }
