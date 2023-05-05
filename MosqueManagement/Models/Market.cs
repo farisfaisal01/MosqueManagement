@@ -9,6 +9,6 @@ namespace MosqueManagement.Models
         public string ? marketName { get; set; }
         public string ? marketDescription { get; set; }
         public string ? marketContact { get; set; }
-        //public string marketAttachment { get; set; }
+        public string marketAttachment { get; set; }
     }
 }

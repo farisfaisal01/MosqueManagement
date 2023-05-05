@@ -9,6 +9,7 @@ namespace MosqueManagement.Models
         public string ? positionTitle { get; set; }
         public string ? positionDescription { get; set; }
         public string ? staffName { get; set; }
-        public string ? staffContact{ get; set;}
+        public string ? staffContact{ get; set; }
+        public string ? staffImage { get; set; }
     }
 }
