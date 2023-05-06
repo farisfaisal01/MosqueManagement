@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Sumber Manusia";
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Sumber Manusia</h1>
+            <p class="lead text-body-secondary">Kenali pihak pengurusan masjid!</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+            <a asp-controller="HumanResource" asp-action="Create" type="button" class="btn btn-sm btn-outline-secondary">Tambah</a>
+        </div>
+    </div>
+</section>
+
+<div class="row mb-2">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">@item.positionTitle</strong>
+                    <h3 class="mb-0">@item.staffName</h3>
+                    <div class="mb-1 text-body-secondary">@item.staffContact</div>
+                    <p class="card-text mb-auto">@item.positionDescription</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img class="card-img-top" src="@item.staffImage" width="200" height="250" alt="Card image caption">
+                </div>
+            </div>
+        </div>
+    }
+</div>

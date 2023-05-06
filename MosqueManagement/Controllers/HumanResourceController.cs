@@ -21,6 +21,11 @@ namespace MosqueManagement.Controllers
             var humanresources = _context.HumanResources.ToList();
             return View(humanresources);
         }
+        public IActionResult AdminIndex()
+        {
+            var humanresources = _context.HumanResources.ToList();
+            return View(humanresources);
+        }
         public IActionResult Create()
         {
             return View();
@@ -34,7 +39,7 @@ namespace MosqueManagement.Controllers
                 return View(humanResource);
             }
             _humanResourceRepository.Add(humanResource);
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
     }
 }

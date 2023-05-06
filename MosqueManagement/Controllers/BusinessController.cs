@@ -20,6 +20,11 @@ namespace MosqueManagement.Controllers
             IEnumerable<Market> markets = await _marketRepository.GetAll();
             return View(markets);
         }
+        public async Task<IActionResult> AdminIndex()
+        {
+            IEnumerable<Market> markets = await _marketRepository.GetAll();
+            return View(markets);
+        }
 
         public IActionResult Create()
         {
@@ -34,7 +39,7 @@ namespace MosqueManagement.Controllers
                 return View(market);
             }
             _marketRepository.Add(market);
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex");
         }
     }
 }

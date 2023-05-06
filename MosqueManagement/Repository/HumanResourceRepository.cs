@@ -5,7 +5,7 @@ using MosqueManagement.Models;
 
 namespace MosqueManagement.Repository
 {
-    public class HumanResourceRepository
+    public class HumanResourceRepository : IHumanResourceRepository
     {
         private readonly ApplicationDbContext _context;
 
