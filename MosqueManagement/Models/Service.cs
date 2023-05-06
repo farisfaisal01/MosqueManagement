@@ -18,6 +18,5 @@ namespace MosqueManagement.Models
         public List<Social> ? Socials { get; set; }
         public List<Class> ? Classs { get; set; }
         public List<Rental> ? Rentals { get; set; }
-        public List<HumanResource> ? HumanResources { get; set; }
     }
 }

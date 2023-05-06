@@ -1,0 +1,34 @@
+﻿@model HumanResource
+@{
+    ViewData["Title"] = "Tambah Ahli";
+}
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="positionTitle">Jawatan</label>
+        <input asp-for="positionTitle" class="form-control" placeholder="Isi jawatan ahli">
+        <span asp-validation-for="positionTitle" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="positionDescription">Penerangan Jawatan</label>
+        <input asp-for="positionDescription" class="form-control" placeholder="Isi penerangan jawatan ahli">
+        <span asp-validation-for="positionDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="staffName">Nama Ahli</label>
+        <input asp-for="staffName" class="form-control" placeholder="Isi nama ahli">
+        <span asp-validation-for="staffName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="staffContact">Nombor Telefon Ahli</label>
+        <input asp-for="staffContact" class="form-control" placeholder="Isi nombor telefon ahli">
+        <span asp-validation-for="staffContact" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="staffImage">Pautan gambar ahli</label>
+        <input asp-for="staffImage" class="form-control" placeholder="Isi pautan gambar ahli">
+        <span asp-validation-for="staffImage" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Hantar</button>
+</form>

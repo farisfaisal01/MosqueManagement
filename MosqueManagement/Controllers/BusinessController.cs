@@ -1,20 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MosqueManagement.Data;
+using MosqueManagement.Interfaces;
+using MosqueManagement.Models;
 
 namespace MosqueManagement.Controllers
 {
     public class BusinessController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMarketRepository _marketRepository;
 
-        public BusinessController(ApplicationDbContext context)
+        public BusinessController(ApplicationDbContext context, IMarketRepository marketRepository)
         {
             _context = context;
+            _marketRepository = marketRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var markets = _context.Markets.ToList();
+            IEnumerable<Market> markets = await _marketRepository.GetAll();
             return View(markets);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Market market)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(market);
+            }
+            _marketRepository.Add(market);
+            return RedirectToAction("Index");
         }
     }
 }

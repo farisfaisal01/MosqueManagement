@@ -1,12 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MosqueManagement.Data;
+using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
+using MosqueManagement.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IHumanResourceRepository, HumanResourceRepository>();
+builder.Services.AddScoped<IMarketRepository, MarketRepository>();
 
 //DBContext Config
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
