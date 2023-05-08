@@ -81,5 +81,29 @@ namespace MosqueManagement.Controllers
             }
             return RedirectToAction("AdminIndex");
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var market = await _humanResourceRepository.GetByIdAsync(id);
+            if (market == null)
+            {
+                return NotFound();
+            }
+
+            return View("Delete", market);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id, HumanResource humanResource)
+        {
+            if (humanResource == null)
+            {
+                return NotFound();
+            }
+
+            _humanResourceRepository.Delete(humanResource);
+            return RedirectToAction("AdminIndex");
+        }
     }
 }
