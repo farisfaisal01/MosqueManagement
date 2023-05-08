@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
@@ -39,6 +40,45 @@ namespace MosqueManagement.Controllers
                 return View(humanResource);
             }
             _humanResourceRepository.Add(humanResource);
+            return RedirectToAction("AdminIndex");
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            HumanResource humanResource = await _humanResourceRepository.GetByIdAsync(id);
+            if (humanResource == null)
+            {
+                return NotFound();
+            }
+            return View(humanResource);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, HumanResource humanResource)
+        {
+            if (id != humanResource.positionId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(humanResource);
+            }
+            try
+            {
+                _humanResourceRepository.Update(humanResource);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (_humanResourceRepository.GetByIdAsync(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return RedirectToAction("AdminIndex");
         }
     }

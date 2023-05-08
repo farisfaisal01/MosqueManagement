@@ -26,6 +26,10 @@
                     <h3 class="mb-0">@item.staffName</h3>
                     <div class="mb-1 text-body-secondary">@item.staffContact</div>
                     <p class="card-text mb-auto">@item.positionDescription</p>
+
+                    <div class="btn-group">
+                        <a asp-controller="HumanResource" asp-action="Update" asp-route-id="@item.positionId" type="button" class="btn btn-sm btn-outline-secondary">Sunting</a>
+                    </div>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                     <img class="card-img-top" src="@item.staffImage" width="200" height="250" alt="Card image caption">

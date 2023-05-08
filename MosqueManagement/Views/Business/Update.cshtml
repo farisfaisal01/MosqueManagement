@@ -1,9 +1,10 @@
 ﻿@model Market
 @{
-    ViewData["Title"] = "Tambah Perniagaan";
 }
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Update" enctype="multipart/form-data">
+    <input type="hidden" asp-for="marketId" />
+
     <div class="form-group">
         <label asp-for="marketName">Nama Perniagaan</label>
         <input asp-for="marketName" class="form-control" placeholder="Isi nama perniagaan">
@@ -24,6 +25,6 @@
         <input asp-for="marketAttachment" class="form-control" placeholder="Isi pautan gambar perniagaan">
         <span asp-validation-for="marketAttachment" class="text-danger"></span>
     </div>
-   <br />
-    <button type="submit" class="btn btn-primary">Tambah</button>
+    <br />
+    <button type="submit" class="btn btn-primary">Sunting</button>
 </form>

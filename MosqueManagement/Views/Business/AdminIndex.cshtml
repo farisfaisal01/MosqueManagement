@@ -25,6 +25,10 @@
                     <h3 class="mb-0">@item.marketName</h3>
                     <div class="mb-1 text-body-secondary">@item.marketContact</div>
                     <p class="card-text mb-auto">@item.marketDescription</p>
+
+                    <div class="btn-group">
+                        <a asp-controller="Business" asp-action="Update" asp-route-id="@item.marketId" type="button" class="btn btn-sm btn-outline-secondary">Sunting</a>
+                    </div>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                     <img class="card-img-top" src="@item.marketAttachment" width="200" height="250" alt="Card image caption">

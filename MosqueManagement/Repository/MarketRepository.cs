@@ -25,6 +25,12 @@ namespace MosqueManagement.Repository
             return Save();
         }
 
+        public bool Update(Market market)
+        {
+            _context.Update(market);
+            return Save();
+        }
+
         public async Task<IEnumerable<Market>> GetAll()
         {
             return await _context.Markets.ToListAsync();
@@ -39,12 +45,6 @@ namespace MosqueManagement.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
-        }
-
-        public bool Update(Market market)
-        {
-            _context.Update(market);
-            return Save();
         }
     }
 }
