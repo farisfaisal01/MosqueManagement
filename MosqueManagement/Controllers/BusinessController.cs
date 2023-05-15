@@ -40,6 +40,7 @@ namespace MosqueManagement.Controllers
                 return View(market);
             }
             _marketRepository.Add(market);
+            TempData["CreateSuccessMessage"] = "Data perniagaan berjaya ditambah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -79,6 +80,7 @@ namespace MosqueManagement.Controllers
                     throw;
                 }
             }
+            TempData["UpdateSuccessMessage"] = "Perincian perniagaan berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -90,20 +92,19 @@ namespace MosqueManagement.Controllers
                 return NotFound();
             }
 
-            return View("Delete", market);
+            return View(market);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id, Market market)
         {
-            //var market = await _marketRepository.GetByIdAsync(id);
             if (market == null)
             {
                 return NotFound();
             }
 
             _marketRepository.Delete(market);
+            TempData["DeleteSuccessMessage"] = "Data perniagaan berjaya dipadam!";
             return RedirectToAction("AdminIndex");
         }
     }

@@ -13,6 +13,26 @@
         <div class="btn-group">
             <a asp-controller="HumanResource" asp-action="Create" type="button" class="btn btn-sm btn-outline-secondary">Tambah</a>
         </div>
+
+        @if (TempData.ContainsKey("CreateSuccessMessage"))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["CreateSuccessMessage"]
+            </div>
+        }
+        @if (TempData.ContainsKey("UpdateSuccessMessage"))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["UpdateSuccessMessage"]
+            </div>
+        }
+        @if (TempData.ContainsKey("DeleteSuccessMessage"))
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["DeleteSuccessMessage"]
+            </div>
+        }
+
     </div>
 </section>
 
@@ -29,7 +49,7 @@
 
                     <div class="btn-group">
                         <a asp-controller="HumanResource" asp-action="Update" asp-route-id="@item.positionId" type="button" class="btn btn-sm btn-outline-secondary">Sunting</a>
-                        <a asp-controller="HumanResource" asp-action="Delete" asp-route-id="@item.positionId" type="button" class="btn btn-sm btn-outline-secondary">Padam</a>
+                        <a type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#confirmModal-@item.positionId">Padam</a>
                     </div>
                 </div>
                 <div class="col-auto d-none d-lg-block">
@@ -37,5 +57,28 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="confirmModal-@item.positionId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@item.positionId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel-@item.positionId">Sahkan Pemadaman</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Anda akan memadam data staff. Adakah anda pasti?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="positionId" value="@item.positionId" />
+                            <button type="submit" class="btn btn-danger">Sahkan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
+
 </div>

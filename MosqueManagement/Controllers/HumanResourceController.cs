@@ -40,6 +40,7 @@ namespace MosqueManagement.Controllers
                 return View(humanResource);
             }
             _humanResourceRepository.Add(humanResource);
+            TempData["CreateSuccessMessage"] = "Data staff berjaya ditambah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -79,22 +80,23 @@ namespace MosqueManagement.Controllers
                     throw;
                 }
             }
+
+            TempData["UpdateSuccessMessage"] = "Perincian staff berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var market = await _humanResourceRepository.GetByIdAsync(id);
-            if (market == null)
+            var humanResource = await _humanResourceRepository.GetByIdAsync(id);
+            if (humanResource == null)
             {
                 return NotFound();
             }
 
-            return View("Delete", market);
+            return View(humanResource);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id, HumanResource humanResource)
         {
             if (humanResource == null)
@@ -103,6 +105,7 @@ namespace MosqueManagement.Controllers
             }
 
             _humanResourceRepository.Delete(humanResource);
+            TempData["DeleteSuccessMessage"] = "Data staff berjaya dipadam!";
             return RedirectToAction("AdminIndex");
         }
     }
