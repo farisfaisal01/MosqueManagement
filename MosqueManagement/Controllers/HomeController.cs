@@ -28,6 +28,11 @@ namespace MosqueManagement.Controllers
             return View();
         }
 
+        public IActionResult AboutAdmin()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

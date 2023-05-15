@@ -6,7 +6,9 @@ namespace MosqueManagement.Models
     {
         [Key]
         public int ? paymentId { get; set; }
-        public string ? paymentSuccess { get; set; }
+        public string? paymentName { get; set; }
+        public string? paymentEmail { get; set; }
+        public string? paymentContact { get; set; }
         public double ? amount { get; set; }
 
         //Relationships
