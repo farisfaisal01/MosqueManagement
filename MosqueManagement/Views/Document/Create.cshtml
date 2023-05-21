@@ -1,0 +1,44 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Tambah Servis";
+}
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="serviceName">Nama Servis</label>
+        <input asp-for="serviceName" class="form-control" placeholder="Isi nama servis">
+        <span asp-validation-for="serviceName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="serviceDescription">Deskripsi Servis</label>
+        <input asp-for="serviceDescription" class="form-control" placeholder="Isi deskripsi servis">
+        <span asp-validation-for="serviceDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="servicePrice">Harga Servis</label>
+        <input asp-for="servicePrice" class="form-control" placeholder="Isi harga servis">
+        <span asp-validation-for="servicePrice" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="serviceEquipments">Peralatan Servis</label>
+        <input asp-for="serviceEquipments" class="form-control" placeholder="Isi peralatan servis">
+        <span asp-validation-for="serviceEquipments" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="serviceCategory">Kategori Servis</label>
+        <select asp-for="serviceCategory" class="form-control" placeholder="Isi kategori servis">
+            >
+            <option>Sewaan</option>
+            <option>Sosial</option>
+            <option>Kelas</option>
+        </select>
+        <span asp-validation-for="serviceCategory" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="serviceAttachment">Pautan Gambar Servis</label>
+        <input asp-for="serviceAttachment" class="form-control" placeholder="Isi pautan gambar servis">
+        <span asp-validation-for="serviceAttachment" class="text-danger"></span>
+    </div>
+   <br />
+    <button type="submit" class="btn btn-primary">Tambah</button>
+</form>

@@ -1,3 +1,88 @@
 ﻿@{
     Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Perkhidmatan";
 }
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Perkhidmatan</h1>
+            <p class="lead text-body-secondary">Sila pilih perkhidmatan yang anda berminat!</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+            <a asp-controller="Document" asp-action="Create" type="button" class="btn btn-sm btn-outline-secondary">Tambah</a>
+        </div>
+
+        @if (TempData.ContainsKey("CreateSuccessMessage"))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["CreateSuccessMessage"]
+            </div>
+        }
+        @if (TempData.ContainsKey("UpdateSuccessMessage"))
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["UpdateSuccessMessage"]
+            </div>
+        }
+        @if (TempData.ContainsKey("DeleteSuccessMessage"))
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["DeleteSuccessMessage"]
+            </div>
+        }
+
+    </div>
+</section>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="card-img-top" src="@item.serviceAttachment" max-width="100%" height="225" alt="Card image caption">
+                        <div class="card-body">
+                            <p class="card-text"><b>@item.serviceName</b></p>
+                            <p class="card-text">@item.serviceDescription</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Document" asp-action="DetailAdmin" asp-route-id="@item.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Lihat</a>
+                                    <a asp-controller="Document" asp-action="Update" asp-route-id="@item.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Sunting</a>
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#confirmModal-@item.serviceId">Padam</a>
+                                </div>
+                                <small class="text-body-secondary">@item.serviceCategory</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirmModal-@item.serviceId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@item.serviceId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel-@item.serviceId">Sahkan Pemadaman</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Anda akan memadam data servis. Adakah anda pasti?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="serviceId" value="@item.serviceId" />
+                                    <button type="submit" class="btn btn-danger">Sahkan</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

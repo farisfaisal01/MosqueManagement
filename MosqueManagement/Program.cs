@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IHumanResourceRepository, HumanResourceRepository>();
 builder.Services.AddScoped<IMarketRepository, MarketRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 //DBContext Config
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
