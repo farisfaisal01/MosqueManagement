@@ -7,6 +7,12 @@
     <h1 class="my-4">
         @Model.serviceName
     </h1>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+            <a asp-controller="Document" asp-action="Update" asp-route-id="@Model.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Sunting</a>
+            <a type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#confirmModal-@Model.serviceId">Padam</a>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-md-8">
