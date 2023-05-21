@@ -58,11 +58,11 @@
         </div>
 
     </div>
-    <div class="modal fade" id="confirmModal-@item.serviceId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@item.serviceId" aria-hidden="true">
+    <div class="modal fade" id="confirmModal-@Model.serviceId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@Model.serviceId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel-@item.serviceId">Sahkan Pemadaman</h5>
+                    <h5 class="modal-title" id="confirmModalLabel-@Model.serviceId">Sahkan Pemadaman</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -73,7 +73,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <form asp-action="Delete" method="post">
-                        <input type="hidden" name="serviceId" value="@item.serviceId" />
+                        <input type="hidden" name="serviceId" value="@Model.serviceId" />
                         <button type="submit" class="btn btn-danger">Sahkan</button>
                     </form>
                 </div>
