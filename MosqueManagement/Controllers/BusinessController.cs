@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.IO.Pipes;
 
 namespace MosqueManagement.Controllers
 {
@@ -10,11 +13,13 @@ namespace MosqueManagement.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMarketRepository _marketRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public BusinessController(ApplicationDbContext context, IMarketRepository marketRepository)
+        public BusinessController(ApplicationDbContext context, IMarketRepository marketRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _marketRepository = marketRepository;
+            webHostEnvironment = webHost;
         }
         public async Task<IActionResult> Index()
         {
@@ -38,6 +43,18 @@ namespace MosqueManagement.Controllers
             if (!ModelState.IsValid)
             {
                 return View(market);
+            }
+            string fileName = null;
+            if (market.marketAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                fileName = Guid.NewGuid().ToString() + "_" + market.marketAttachment.FileName;
+                market.marketImagePath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    market.marketAttachment.CopyTo(fileStream);
+                }
             }
             _marketRepository.Add(market);
             TempData["CreateSuccessMessage"] = "Data perniagaan berjaya ditambah!";

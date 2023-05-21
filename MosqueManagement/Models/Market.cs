@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MosqueManagement.Models
 {
@@ -9,6 +10,8 @@ namespace MosqueManagement.Models
         public string ? marketName { get; set; }
         public string ? marketDescription { get; set; }
         public string ? marketContact { get; set; }
-        public string marketAttachment { get; set; }
+        public string ? marketImagePath { get; set; }
+        [NotMapped]
+        public IFormFile marketAttachment { get; set; }
     }
 }

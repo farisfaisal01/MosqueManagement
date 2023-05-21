@@ -25,10 +25,20 @@
         <span asp-validation-for="marketAttachment" class="text-danger"></span>
     </div>*@
     <div class="form-group">
-        <label asp-for="marketAttachment">Pautan Gambar Perniagaan</label>
-        <input asp-for="marketAttachment" type="file" class="form-control" accept="image/png, image/jpeg">
+        <label asp-for="marketAttachment" class="control-label">Gambar Perniagaan</label>
+        <div class="custom-file">
+            <input asp-for="marketAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="marketAttachment" onchange="document.getElementById('MarketImage').src = window.URL.createObjectURL(this.files[0]">
+            <label class="custom-file-label" for="marketAttachment"></label>
+        </div>
         <span asp-validation-for="marketAttachment" class="text-danger"></span>
     </div>
    <br />
     <button type="submit" class="btn btn-primary">Tambah</button>
 </form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function(){
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })    
+</script>
