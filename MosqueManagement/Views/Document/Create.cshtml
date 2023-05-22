@@ -3,7 +3,7 @@
     ViewData["Title"] = "Tambah Servis";
 }
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="serviceName">Nama Servis</label>
         <input asp-for="serviceName" class="form-control" placeholder="Isi nama servis">
@@ -35,10 +35,20 @@
         <span asp-validation-for="serviceCategory" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="serviceAttachment">Pautan Gambar Servis</label>
-        <input asp-for="serviceAttachment" class="form-control" placeholder="Isi pautan gambar servis">
+        <label asp-for="serviceAttachment" class="control-label">Gambar Perniagaan</label>
+        <div class="custom-file">
+            <input asp-for="serviceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="serviceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]">
+            <label class="custom-file-label" for="serviceAttachment"></label>
+        </div>
         <span asp-validation-for="serviceAttachment" class="text-danger"></span>
     </div>
    <br />
     <button type="submit" class="btn btn-primary">Tambah</button>
 </form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })
+</script>

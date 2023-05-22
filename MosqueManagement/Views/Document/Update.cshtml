@@ -36,9 +36,12 @@
         <span asp-validation-for="serviceCategory" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="serviceAttachment">Pautan Gambar Servis</label>
-        <input asp-for="serviceAttachment" class="form-control" placeholder="Isi pautan gambar servis">
-        <span asp-validation-for="serviceAttachment" class="text-danger"></span>
+        <label asp-for="updatedServiceAttachment" class="control-label">Gambar Perniagaan</label>
+        <div class="custom-file">
+            <input asp-for="updatedServiceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="updatedServiceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]">
+            <label class="custom-file-label" for="updatedServiceAttachment"></label>
+        </div>
+        <span asp-validation-for="updatedServiceAttachment" class="text-danger"></span>
     </div>
     <br />
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Sunting</button>
@@ -64,3 +67,10 @@
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })
+</script>

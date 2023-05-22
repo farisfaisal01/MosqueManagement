@@ -4,6 +4,9 @@ using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
 using MosqueManagement.Repository;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.IO.Pipes;
 
 namespace MosqueManagement.Controllers
 {
@@ -11,11 +14,13 @@ namespace MosqueManagement.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IServiceRepository _serviceRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository)
+        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _serviceRepository = serviceRepository;
+            webHostEnvironment = webHost;
         }
         public async Task<IActionResult> Index()
         {
@@ -60,6 +65,18 @@ namespace MosqueManagement.Controllers
             {
                 return View(service);
             }
+            string fileName = null;
+            if (service.serviceAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                fileName = Guid.NewGuid().ToString() + "_" + service.serviceAttachment.FileName;
+                service.serviceImagePath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    service.serviceAttachment.CopyTo(fileStream);
+                }
+            }
             _serviceRepository.Add(service);
             TempData["CreateSuccessMessage"] = "Data servis berjaya ditambah!";
             return RedirectToAction("AdminIndex");
@@ -86,13 +103,28 @@ namespace MosqueManagement.Controllers
             {
                 return View(service);
             }
+
             try
             {
+                if (service.updatedServiceAttachment != null)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                    string fileName = Guid.NewGuid().ToString() + "_" + service.updatedServiceAttachment.FileName;
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await service.updatedServiceAttachment.CopyToAsync(fileStream);
+                    }
+
+                    service.serviceImagePath = fileName;
+                }
+
                 _serviceRepository.Update(service);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (_serviceRepository.GetByIdAsync(id) == null)
+                if (await _serviceRepository.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
@@ -101,7 +133,8 @@ namespace MosqueManagement.Controllers
                     throw;
                 }
             }
-            TempData["UpdateSuccessMessage"] = "Deskripsi servis berjaya diubah!";
+
+            TempData["UpdateSuccessMessage"] = "Perincian perniagaan berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -124,8 +157,20 @@ namespace MosqueManagement.Controllers
                 return NotFound();
             }
 
+            // Delete the associated image file
+            if (!string.IsNullOrEmpty(service.serviceImagePath))
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                string filePath = Path.Combine(uploadsFolder, service.serviceImagePath);
+
+                // Delete the image file
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
             _serviceRepository.Delete(service);
-            TempData["DeleteSuccessMessage"] = "Data servis berjaya dipadam!";
+            TempData["DeleteSuccessMessage"] = "Data perniagaan berjaya dipadam!";
             return RedirectToAction("AdminIndex");
         }
     }

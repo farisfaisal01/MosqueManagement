@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
 using MosqueManagement.Repository;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.IO.Pipes;
 
 namespace MosqueManagement.Controllers
 {
@@ -11,11 +16,13 @@ namespace MosqueManagement.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHumanResourceRepository _humanResourceRepository;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public HumanResourceController(ApplicationDbContext context, IHumanResourceRepository humanResourceRepository)
+        public HumanResourceController(ApplicationDbContext context, IHumanResourceRepository humanResourceRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _humanResourceRepository = humanResourceRepository;
+            webHostEnvironment = webHost;
         }
         public IActionResult Index()
         {
@@ -39,8 +46,20 @@ namespace MosqueManagement.Controllers
             {
                 return View(humanResource);
             }
+            string fileName = null;
+            if (humanResource.staffImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                fileName = Guid.NewGuid().ToString() + "_" + humanResource.staffImage.FileName;
+                humanResource.staffImagePath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    humanResource.staffImage.CopyTo(fileStream);
+                }
+            }
             _humanResourceRepository.Add(humanResource);
-            TempData["CreateSuccessMessage"] = "Data staff berjaya ditambah!";
+            TempData["CreateSuccessMessage"] = "Data perniagaan berjaya ditambah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -65,13 +84,28 @@ namespace MosqueManagement.Controllers
             {
                 return View(humanResource);
             }
+
             try
             {
+                if (humanResource.updatedStaffImage != null)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                    string fileName = Guid.NewGuid().ToString() + "_" + humanResource.updatedStaffImage.FileName;
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await humanResource.updatedStaffImage.CopyToAsync(fileStream);
+                    }
+
+                    humanResource.staffImagePath = fileName;
+                }
+
                 _humanResourceRepository.Update(humanResource);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (_humanResourceRepository.GetByIdAsync(id) == null)
+                if (await _humanResourceRepository.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
@@ -81,7 +115,7 @@ namespace MosqueManagement.Controllers
                 }
             }
 
-            TempData["UpdateSuccessMessage"] = "Perincian staff berjaya diubah!";
+            TempData["UpdateSuccessMessage"] = "Perincian perniagaan berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -104,8 +138,21 @@ namespace MosqueManagement.Controllers
                 return NotFound();
             }
 
+            // Delete the associated image file
+            if (!string.IsNullOrEmpty(humanResource.staffImagePath))
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                string filePath = Path.Combine(uploadsFolder, humanResource.staffImagePath);
+
+                // Delete the image file
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
             _humanResourceRepository.Delete(humanResource);
-            TempData["DeleteSuccessMessage"] = "Data staff berjaya dipadam!";
+            TempData["DeleteSuccessMessage"] = "Data perniagaan berjaya dipadam!";
             return RedirectToAction("AdminIndex");
         }
     }

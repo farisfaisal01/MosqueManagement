@@ -14,7 +14,7 @@ namespace MosqueManagement.Models
         public string ? feedback { get; set; }
         public string ? package { get; set; }
         public string ? remarks { get; set; }
-        public string attachment { get; set; }
+        public string ? attachment { get; set; }
 
         //Relationships
         public List<Schedule> ? Schedules { get; set; }

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Tambah Ahli";
 }
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="positionTitle">Jawatan</label>
         <input asp-for="positionTitle" class="form-control" placeholder="Isi jawatan ahli">
@@ -25,10 +25,20 @@
         <span asp-validation-for="staffContact" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="staffImage">Pautan gambar ahli</label>
-        <input asp-for="staffImage" class="form-control" placeholder="Isi pautan gambar ahli">
+        <label asp-for="staffImage" class="control-label">Gambar Ahli</label>
+        <div class="custom-file">
+            <input asp-for="staffImage" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="staffImage" onchange="document.getElementById('StaffImage').src = window.URL.createObjectURL(this.files[0]">
+            <label class="custom-file-label" for="staffImage"></label>
+        </div>
         <span asp-validation-for="staffImage" class="text-danger"></span>
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Hantar</button>
 </form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })
+</script>
