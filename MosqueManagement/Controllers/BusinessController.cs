@@ -82,13 +82,28 @@ namespace MosqueManagement.Controllers
             {
                 return View(market);
             }
+
             try
             {
+                if (market.updatedMarketAttachment != null)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                    string fileName = Guid.NewGuid().ToString() + "_" + market.updatedMarketAttachment.FileName;
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await market.updatedMarketAttachment.CopyToAsync(fileStream);
+                    }
+
+                    market.marketImagePath = fileName; 
+                }
+
                 _marketRepository.Update(market);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (_marketRepository.GetByIdAsync(id) == null)
+                if (await _marketRepository.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
@@ -97,6 +112,7 @@ namespace MosqueManagement.Controllers
                     throw;
                 }
             }
+
             TempData["UpdateSuccessMessage"] = "Perincian perniagaan berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
@@ -118,6 +134,19 @@ namespace MosqueManagement.Controllers
             if (market == null)
             {
                 return NotFound();
+            }
+
+            // Delete the associated image file
+            if (!string.IsNullOrEmpty(market.marketImagePath))
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Assets");
+                string filePath = Path.Combine(uploadsFolder, market.marketImagePath);
+
+                // Delete the image file
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
 
             _marketRepository.Delete(market);

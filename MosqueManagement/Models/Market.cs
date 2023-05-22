@@ -12,6 +12,8 @@ namespace MosqueManagement.Models
         public string ? marketContact { get; set; }
         public string ? marketImagePath { get; set; }
         [NotMapped]
-        public IFormFile marketAttachment { get; set; }
+        public IFormFile ? marketAttachment { get; set; }
+        [NotMapped]
+        public IFormFile ? updatedMarketAttachment { get; set; }
     }
 }
