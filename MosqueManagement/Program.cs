@@ -12,6 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IHumanResourceRepository, HumanResourceRepository>();
 builder.Services.AddScoped<IMarketRepository, MarketRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
 //DBContext Config
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
