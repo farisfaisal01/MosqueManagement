@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosqueManagement.Data;
 
@@ -11,9 +12,11 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528041847_serviceId")]
+    partial class serviceId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,14 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Class", b =>
                 {
-                    b.Property<int?>("classId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("classId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
+
+                    b.Property<int?>("Userid")
+                        .HasColumnType("int");
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -48,30 +54,25 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("feedback")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("package")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("scheduleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("serviceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
+                    b.HasKey("formId");
 
-                    b.HasKey("classId");
+                    b.HasIndex("Userid");
 
                     b.HasIndex("paymentId");
 
-                    b.HasIndex("scheduleId");
-
                     b.HasIndex("serviceId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Classes");
                 });
@@ -137,6 +138,9 @@ namespace MosqueManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("paymentId"));
 
+                    b.Property<int?>("Userid")
+                        .HasColumnType("int");
+
                     b.Property<string>("paymentAmount")
                         .HasColumnType("nvarchar(max)");
 
@@ -169,16 +173,21 @@ namespace MosqueManagement.Migrations
 
                     b.HasKey("paymentId");
 
+                    b.HasIndex("Userid");
+
                     b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("MosqueManagement.Models.Rental", b =>
                 {
-                    b.Property<int?>("rentalId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("rentalId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
+
+                    b.Property<int?>("Userid")
+                        .HasColumnType("int");
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -210,27 +219,19 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("scheduleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("serviceId")
                         .HasColumnType("int");
 
                     b.Property<string>("startDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
+                    b.HasKey("formId");
 
-                    b.HasKey("rentalId");
+                    b.HasIndex("Userid");
 
                     b.HasIndex("paymentId");
 
-                    b.HasIndex("scheduleId");
-
                     b.HasIndex("serviceId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Rentals");
                 });
@@ -243,10 +244,25 @@ namespace MosqueManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("scheduleId"));
 
+                    b.Property<int?>("ClassformId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RentalformId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SocialformId")
+                        .HasColumnType("int");
+
                     b.Property<string>("occupied")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("scheduleId");
+
+                    b.HasIndex("ClassformId");
+
+                    b.HasIndex("RentalformId");
+
+                    b.HasIndex("SocialformId");
 
                     b.ToTable("Schedules");
                 });
@@ -284,11 +300,14 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Social", b =>
                 {
-                    b.Property<int?>("socialId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("socialId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
+
+                    b.Property<int?>("Userid")
+                        .HasColumnType("int");
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -311,30 +330,25 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("feedback")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("package")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("scheduleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("serviceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
+                    b.HasKey("formId");
 
-                    b.HasKey("socialId");
+                    b.HasIndex("Userid");
 
                     b.HasIndex("paymentId");
 
-                    b.HasIndex("scheduleId");
-
                     b.HasIndex("serviceId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Socials");
                 });
@@ -381,83 +395,115 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Class", b =>
                 {
-                    b.HasOne("MosqueManagement.Models.Payment", "Payment")
-                        .WithMany()
+                    b.HasOne("MosqueManagement.Models.User", null)
+                        .WithMany("Classs")
+                        .HasForeignKey("Userid");
+
+                    b.HasOne("MosqueManagement.Models.Payment", null)
+                        .WithMany("Classs")
                         .HasForeignKey("paymentId");
 
-                    b.HasOne("MosqueManagement.Models.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("scheduleId");
-
-                    b.HasOne("MosqueManagement.Models.Service", "Service")
-                        .WithMany()
+                    b.HasOne("MosqueManagement.Models.Service", null)
+                        .WithMany("Classs")
                         .HasForeignKey("serviceId");
+                });
 
-                    b.HasOne("MosqueManagement.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("Payment");
-
-                    b.Navigation("Schedule");
-
-                    b.Navigation("Service");
-
-                    b.Navigation("User");
+            modelBuilder.Entity("MosqueManagement.Models.Payment", b =>
+                {
+                    b.HasOne("MosqueManagement.Models.User", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("Userid");
                 });
 
             modelBuilder.Entity("MosqueManagement.Models.Rental", b =>
                 {
-                    b.HasOne("MosqueManagement.Models.Payment", "Payment")
-                        .WithMany()
+                    b.HasOne("MosqueManagement.Models.User", null)
+                        .WithMany("Rentals")
+                        .HasForeignKey("Userid");
+
+                    b.HasOne("MosqueManagement.Models.Payment", null)
+                        .WithMany("Rentals")
                         .HasForeignKey("paymentId");
 
-                    b.HasOne("MosqueManagement.Models.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("scheduleId");
-
                     b.HasOne("MosqueManagement.Models.Service", "Service")
-                        .WithMany()
+                        .WithMany("Rentals")
                         .HasForeignKey("serviceId");
 
-                    b.HasOne("MosqueManagement.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("Payment");
-
-                    b.Navigation("Schedule");
-
                     b.Navigation("Service");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("MosqueManagement.Models.Schedule", b =>
+                {
+                    b.HasOne("MosqueManagement.Models.Class", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("ClassformId");
+
+                    b.HasOne("MosqueManagement.Models.Rental", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("RentalformId");
+
+                    b.HasOne("MosqueManagement.Models.Social", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("SocialformId");
                 });
 
             modelBuilder.Entity("MosqueManagement.Models.Social", b =>
                 {
-                    b.HasOne("MosqueManagement.Models.Payment", "Payment")
-                        .WithMany()
+                    b.HasOne("MosqueManagement.Models.User", null)
+                        .WithMany("Socials")
+                        .HasForeignKey("Userid");
+
+                    b.HasOne("MosqueManagement.Models.Payment", null)
+                        .WithMany("Socials")
                         .HasForeignKey("paymentId");
 
-                    b.HasOne("MosqueManagement.Models.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("scheduleId");
-
-                    b.HasOne("MosqueManagement.Models.Service", "Service")
-                        .WithMany()
+                    b.HasOne("MosqueManagement.Models.Service", null)
+                        .WithMany("Socials")
                         .HasForeignKey("serviceId");
+                });
 
-                    b.HasOne("MosqueManagement.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId");
+            modelBuilder.Entity("MosqueManagement.Models.Class", b =>
+                {
+                    b.Navigation("Schedules");
+                });
 
-                    b.Navigation("Payment");
+            modelBuilder.Entity("MosqueManagement.Models.Payment", b =>
+                {
+                    b.Navigation("Classs");
 
-                    b.Navigation("Schedule");
+                    b.Navigation("Rentals");
 
-                    b.Navigation("Service");
+                    b.Navigation("Socials");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("MosqueManagement.Models.Rental", b =>
+                {
+                    b.Navigation("Schedules");
+                });
+
+            modelBuilder.Entity("MosqueManagement.Models.Service", b =>
+                {
+                    b.Navigation("Classs");
+
+                    b.Navigation("Rentals");
+
+                    b.Navigation("Socials");
+                });
+
+            modelBuilder.Entity("MosqueManagement.Models.Social", b =>
+                {
+                    b.Navigation("Schedules");
+                });
+
+            modelBuilder.Entity("MosqueManagement.Models.User", b =>
+                {
+                    b.Navigation("Classs");
+
+                    b.Navigation("Payments");
+
+                    b.Navigation("Rentals");
+
+                    b.Navigation("Socials");
                 });
 #pragma warning restore 612, 618
         }

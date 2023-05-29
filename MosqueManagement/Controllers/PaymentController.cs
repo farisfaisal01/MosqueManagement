@@ -23,13 +23,13 @@ namespace MosqueManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Payment market)
+        public async Task<IActionResult> Index(Payment payment)
         {
             if (!ModelState.IsValid)
             {
-                return View(market);
+                return View(payment);
             }
-            _paymentRepository.Add(market);
+            _paymentRepository.Add(payment);
             TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
             return RedirectToAction("Index");
         }

@@ -1,33 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
+using MosqueManagement.Migrations;
 using MosqueManagement.Models;
 
 namespace MosqueManagement.Repository
 {
-    public class PaymentRepository : IPaymentRepository
+    public class RentalRepository : IRentalRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public PaymentRepository(ApplicationDbContext context)
+        public RentalRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public bool Add(Payment payment)
+        public bool Add(Rental rental)
         {
-            _context.Add(payment);
+            _context.Add(rental);
             return Save();
         }
 
-        public async Task<IEnumerable<Payment>> GetAll()
+        public async Task<IEnumerable<Rental>> GetAll()
         {
-            return await _context.Payments.ToListAsync();
+            return await _context.Rentals.ToListAsync();
         }
 
-        public async Task<Payment> GetByIdAsync(int paymentId)
+        public async Task<Rental> GetByIdAsync(int rentalId)
         {
-            return await _context.Payments.FirstOrDefaultAsync(i => i.paymentId == paymentId);
+            return await _context.Rentals.FirstOrDefaultAsync(i => i.rentalId == rentalId);
         }
 
         public bool Save()

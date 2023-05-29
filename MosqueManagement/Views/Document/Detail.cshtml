@@ -19,10 +19,30 @@
             <p>RM @Model.servicePrice</p>
             <h5>Peralatan</h5>
             <p>@Model.serviceEquipments</p>
+
+            @if (Model.serviceCategory == "Sewaan")
+            {
+                <div class="btn-group">
+                    <a asp-controller="Rental" asp-action="Index" asp-route-id="@Model.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Mohon</a>
+                </div>
+            }
+            else if (Model.serviceCategory == "Class")
+            {
+                <div class="btn-group">
+                    <a asp-controller="Class" asp-action="Index" asp-route-id="@Model.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Mohon</a>
+                </div>
+            }
+            else if (Model.serviceCategory == "Sosial")
+            {
+                <div class="btn-group">
+                    <a asp-controller="Social" asp-action="Index" asp-route-id="@Model.serviceId" type="button" class="btn btn-sm btn-outline-secondary">Mohon</a>
+                </div>
+            }
+
         </div>
 
     </div>
-    <h3 class="my-4">Gambar Berkaitan</h3>
+    @*<h3 class="my-4">Gambar Berkaitan</h3>
 
     <div class="row">
 
@@ -49,6 +69,5 @@
                 <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
             </a>
         </div>
-
-    </div>
+    </div>*@
 </div>

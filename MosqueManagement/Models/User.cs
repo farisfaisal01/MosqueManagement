@@ -16,11 +16,5 @@ namespace MosqueManagement.Models
         public string ? phone { get; set; }
         public string ? password { get; set; }
         public string ? role { get; set; }
-
-        //Relationships
-        public List<Social> ? Socials { get; set; }
-        public List<Class> ? Classs { get; set; }
-        public List<Rental> ? Rentals { get; set;}
-        public List<Payment> ? Payments { get; set; }
     }
 }

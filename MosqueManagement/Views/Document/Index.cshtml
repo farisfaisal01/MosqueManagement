@@ -11,6 +11,13 @@
     </div>
 </section>
 
+@if (TempData.ContainsKey("CreateSuccessMessage"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["CreateSuccessMessage"]
+    </div>
+}
+
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
 

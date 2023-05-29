@@ -1,0 +1,47 @@
+﻿@model Class
+@{
+    ViewData["Title"] = "Mohon Servis";
+    Service service = ViewData["Service"] as Service;
+}
+
+<form method="post" action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="equipment">Peralatan Keperluan</label>
+        <input asp-for="equipment" type="text" id="equipment" name="equipment" class="form-control" placeholder="Isi peralatan keperluan">
+        <span asp-validation-for="equipment" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="remarks">Nota Kepada Pengurusan</label>
+        <input asp-for="remarks" type="text" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+        <span asp-validation-for="remarks" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="attachment">Kepilan</label>
+        <input asp-for="attachment" type="text" id="attachment" name="attachment" class="form-control" placeholder="Isi kepilan">
+        <span asp-validation-for="attachment" class="text-danger"></span>
+    </div>
+    <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId" value="@service.serviceId" />
+    <br />
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Mohon</button>
+
+    <!-- Modal for confirmation -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Pengesahan Permohonan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Batal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Anda akan memohon servis. Adakah anda pasti dengan segala perincian?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Mohon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

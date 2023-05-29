@@ -18,10 +18,5 @@ namespace MosqueManagement.Models
         public IFormFile? serviceAttachment { get; set; }
         [NotMapped]
         public IFormFile? updatedServiceAttachment { get; set; }
-
-        //Relationships
-        public List<Social> ? Socials { get; set; }
-        public List<Class> ? Classs { get; set; }
-        public List<Rental> ? Rentals { get; set; }
     }
 }

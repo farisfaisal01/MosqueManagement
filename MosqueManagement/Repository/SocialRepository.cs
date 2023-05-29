@@ -5,29 +5,29 @@ using MosqueManagement.Models;
 
 namespace MosqueManagement.Repository
 {
-    public class PaymentRepository : IPaymentRepository
+    public class SocialRepository : ISocialRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public PaymentRepository(ApplicationDbContext context)
+        public SocialRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public bool Add(Payment payment)
+        public bool Add(Social social)
         {
-            _context.Add(payment);
+            _context.Add(social);
             return Save();
         }
 
-        public async Task<IEnumerable<Payment>> GetAll()
+        public async Task<IEnumerable<Social>> GetAll()
         {
-            return await _context.Payments.ToListAsync();
+            return await _context.Socials.ToListAsync();
         }
 
-        public async Task<Payment> GetByIdAsync(int paymentId)
+        public async Task<Social> GetByIdAsync(int socialId)
         {
-            return await _context.Payments.FirstOrDefaultAsync(i => i.paymentId == paymentId);
+            return await _context.Socials.FirstOrDefaultAsync(i => i.socialId == socialId);
         }
 
         public bool Save()

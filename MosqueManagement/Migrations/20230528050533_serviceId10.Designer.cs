@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosqueManagement.Data;
 
@@ -11,9 +12,11 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528050533_serviceId10")]
+    partial class serviceId10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Class", b =>
                 {
-                    b.Property<int?>("classId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("classId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -48,6 +51,9 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("feedback")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("package")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
@@ -63,7 +69,7 @@ namespace MosqueManagement.Migrations
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 
-                    b.HasKey("classId");
+                    b.HasKey("formId");
 
                     b.HasIndex("paymentId");
 
@@ -174,11 +180,11 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Rental", b =>
                 {
-                    b.Property<int?>("rentalId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("rentalId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -222,7 +228,7 @@ namespace MosqueManagement.Migrations
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 
-                    b.HasKey("rentalId");
+                    b.HasKey("formId");
 
                     b.HasIndex("paymentId");
 
@@ -284,11 +290,11 @@ namespace MosqueManagement.Migrations
 
             modelBuilder.Entity("MosqueManagement.Models.Social", b =>
                 {
-                    b.Property<int?>("socialId")
+                    b.Property<int?>("formId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("socialId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("formId"));
 
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
@@ -311,6 +317,9 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("feedback")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("package")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("paymentId")
                         .HasColumnType("int");
 
@@ -326,7 +335,7 @@ namespace MosqueManagement.Migrations
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 
-                    b.HasKey("socialId");
+                    b.HasKey("formId");
 
                     b.HasIndex("paymentId");
 
