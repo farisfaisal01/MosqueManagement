@@ -12,6 +12,7 @@ namespace MosqueManagement.Models
         public string ? paymentAmount { get; set; }
         public string? paymentPurpose { get; set; }
         public string? paymentMethod { get; set; }
+        public string? paymentBank { get; set; }
         public string? paymentCardNumber { get; set; }
         public string? paymentCardCVC { get; set; }
         public string? paymentCardExpireMonth { get; set; }

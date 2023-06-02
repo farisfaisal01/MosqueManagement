@@ -15,12 +15,18 @@ namespace MosqueManagement.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IServiceRepository _serviceRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IRentalRepository _rentalRepository;
+        private readonly ISocialRepository _socialRepository;
+        private readonly IClassRepository _classRepository;
 
-        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost)
+        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository)
         {
             _context = context;
             _serviceRepository = serviceRepository;
             webHostEnvironment = webHost;
+            _rentalRepository = rentalRepository;
+            _socialRepository = socialRepository;
+            _classRepository = classRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -172,6 +178,21 @@ namespace MosqueManagement.Controllers
             _serviceRepository.Delete(service);
             TempData["DeleteSuccessMessage"] = "Data perniagaan berjaya dipadam!";
             return RedirectToAction("AdminIndex");
+        }
+
+        public async Task<IActionResult> Approve()
+        {
+            IEnumerable<Service> services = await _serviceRepository.GetAll();
+            IEnumerable<Rental> rentals = await _rentalRepository.GetAll();
+            IEnumerable<Social> socials = await _socialRepository.GetAll();
+            IEnumerable<Class> classes = await _classRepository.GetAll();
+
+            ViewData["Services"] = services;
+            ViewData["Rentals"] = rentals;
+            ViewData["Socials"] = socials;
+            ViewData["Classes"] = classes;
+
+            return View();
         }
     }
 }

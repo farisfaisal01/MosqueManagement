@@ -79,21 +79,30 @@
                         <div id="duitNowQRPayDetails" style="display: none;">
                             <!-- DuitNow QR Pay form fields -->
                             <div id="qrCodeContainer">
-                                <img src="" alt="DuitNow QR Code" width="250" height="250" style="border:2px solid black">
+                                <img src="https://donate.sols247.org/wp-content/uploads/2022/01/duitnow-qr-code-sols247.png" alt="DuitNow QR Code" width="250" height="250" style="border:2px solid black">
                             </div>
                         </div>
                         <div id="bankTransferDetails" style="display: none;">
                             <!-- Bank Transfer form fields -->
-                            <div class="card">
-                                <img class="bd-placeholder-img card-img-top" src="https://map.muamalat.com.my/media/images/muamalat_logo.original.png" alt="Image cap">
-
-                                <div class="card-body">
-                                    <h5 class="card-title mb-4" style="text-align:center;">Tabung Masjid Ar-Rahman Taman Putri</h5>
-                                    <p class="card-text mb-0" style="text-align:center;">01020004012716</p>
-                                    <p class="card-text mt-0" style="text-align:center;">-Bank Muamalat-</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="paymentBank">Pilih bank:</label>
+                                <select name="paymentBank" id="paymentBank" class="form-control">
+                                    <option value="" disabled selected hidden>Pilih bank</option>
+                                    <option value="Bank Muamalat (M) Berhad">Bank Muamalat (M) Berhad</option>
+                                    <option value="Malayan Banking Berhad (Maybank)">Malayan Banking Berhad (Maybank)</option>
+                                    <option value="Bank Simpanan Nasional">Bank Simpanan Nasional</option>
+                                    <option value="Affin Bank Berhad">Affin Bank Berhad</option>
+                                    <option value="CIMB Bank Berhad">CIMB Bank Berhad</option>
+                                    <option value="Bank Islam Malaysia Berhad">Bank Islam Malaysia Berhad</option>
+                                    <option value="Public Bank Berhad">Public Bank Berhad</option>
+                                    <option value="Alliance Bank Berhad">Alliance Bank Berhad</option>
+                                    <option value="RHB Bank Berhad">RHB Bank Berhad</option>
+                                    <option value="HSBC Bank Malaysia Berhad">HSBC Bank Malaysia Berhad</option>
+                                    <option value="Bank Kerjasama Rakyat (Malaysia) Berhad">Bank Kerjasama Rakyat (Malaysia) Berhad</option>
+                                    <option value="Hong Leong Bank Berhad">Hong Leong Bank Berhad</option>
+                                    <option value="Agro Bank Berhad">Agro Bank Berhad</option>
+                                </select>
                             </div>
-                        </div>
                         <div id="cardPaymentDetails" style="display: none;">
                             <!-- Card Payment form fields -->
                             <div class="form-group">
