@@ -7,6 +7,7 @@ namespace MosqueManagement.Interfaces
         Task<IEnumerable<Class>> GetAll();
         Task<Class> GetByIdAsync(int classId);
         bool Add(Class @class);
+        bool Update(Class @class);
         bool Save();
     }
 }

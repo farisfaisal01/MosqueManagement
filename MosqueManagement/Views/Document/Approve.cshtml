@@ -22,6 +22,8 @@
     <tbody>
         @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
         {
+            @if (rental.approval == null)
+            {
             <tr>
                 <td>
                     @{
@@ -34,8 +36,8 @@
                 </td>
                 <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Lihat</button></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal4">Lulus</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Tolak</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal4-@rental.rentalId">Lulus</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal5-@rental.rentalId">Tolak</button>
                 </td>
             </tr>
 
@@ -55,6 +57,7 @@
                                 <p>Perincian Program: @rental.eventDescription</p>
                                 <p>Tarikh Mula: @rental.startDate</p>
                                 <p>Tarikh Tamat: @rental.endDate</p>
+                                <p>Lampiran: @rental.attachment</p>
                                 <p>Nota: @rental.remarks</p>
                             </div>
                         </div>
@@ -64,13 +67,16 @@
                     </div>
                 </div>
             </div>
-
+            }
+        }
+        @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
+        {
             <!-- Modal for confirmation -->
-            <div class="modal fade" id="confirmModal4" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmModal4-@rental.rentalId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@rental.rentalId" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="confirmModalLabel">Luluskan Permohonan</h5>
+                            <h5 class="modal-title" id="confirmModalLabel-@rental.rentalId">Luluskan Permohonan</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -81,14 +87,64 @@
                                 <p>Perincian Program: @rental.eventDescription</p>
                                 <p>Tarikh Mula: @rental.startDate</p>
                                 <p>Tarikh Tamat: @rental.endDate</p>
+                                <p>Lampiran: @rental.attachment</p>
                                 <p>Nota: @rental.remarks</p>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                            <form method="post" action="/Document/Approve">
-                                <input asp-for="@rental.approval" type="hidden" name="approval" value="lulus" />
+                            <form method="post" asp-action="RentalApproval" enctype="multipart/form-data" asp-route-id="@rental.rentalId">
+                                <input type="hidden" asp-for="@rental.rentalId" value="@rental.rentalId" />
+                                <input type="hidden" asp-for="@rental.eventName" value="@rental.eventName" />
+                                <input type="hidden" asp-for="@rental.eventDescription" value="@rental.eventDescription" />
+                                <input type="hidden" asp-for="@rental.startDate" value="@rental.startDate" />
+                                <input type="hidden" asp-for="@rental.endDate" value="@rental.endDate" />
+                                <input type="hidden" asp-for="@rental.attachment" value="@rental.attachment" />
+                                <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
+                                <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
+                                <input asp-for="@rental.approval" type="hidden" value="Lulus" />
                                 <button type="submit" class="btn btn-primary">Lulus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
+        {
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal5-@rental.rentalId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@rental.rentalId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel-@rental.rentalId">Luluskan Permohonan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>Nama Program: @rental.eventName</p>
+                                <p>Perincian Program: @rental.eventDescription</p>
+                                <p>Tarikh Mula: @rental.startDate</p>
+                                <p>Tarikh Tamat: @rental.endDate</p>
+                                <p>Lampiran: @rental.attachment</p>
+                                <p>Nota: @rental.remarks</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <form method="post" asp-action="RentalApproval" enctype="multipart/form-data" asp-route-id="@rental.rentalId">
+                                <input type="hidden" asp-for="@rental.rentalId" value="@rental.rentalId" />
+                                <input type="hidden" asp-for="@rental.eventName" value="@rental.eventName" />
+                                <input type="hidden" asp-for="@rental.eventDescription" value="@rental.eventDescription" />
+                                <input type="hidden" asp-for="@rental.startDate" value="@rental.startDate" />
+                                <input type="hidden" asp-for="@rental.endDate" value="@rental.endDate" />
+                                <input type="hidden" asp-for="@rental.attachment" value="@rental.attachment" />
+                                <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
+                                <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
+                                <input asp-for="@rental.approval" type="hidden" value="Ditolak" />
+                                <button type="submit" class="btn btn-danger">Tolak</button>
                             </form>
                         </div>
                     </div>
@@ -97,6 +153,8 @@
         }
         @foreach (var social in ViewData["Socials"] as IEnumerable<Social>)
         {
+            @if (social.approval == null)
+            {
             <tr>
                 <td>
                     @{
@@ -109,8 +167,8 @@
                 </td>
                 <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal2">Lihat</button></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Lulus</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Tolak</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal6-@social.socialId">Lulus</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal7-@social.socialId">Tolak</button>
                 </td>
             </tr>
 
@@ -137,9 +195,86 @@
                     </div>
                 </div>
             </div>
+            }
+        }
+        @foreach (var social in ViewData["Socials"] as IEnumerable<Social>)
+        {
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal6-@social.socialId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@social.socialId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel-@social.socialId">Luluskan Permohonan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>Tarikh Program: @social.eventDate</p>
+                                <p>Masa Program: @social.eventTime</p>
+                                <p>Lampiran: @social.attachment</p>
+                                <p>Nota: @social.remarks</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <form method="post" asp-action="SocialApproval" enctype="multipart/form-data" asp-route-id="@social.socialId">
+                                <input type="hidden" asp-for="@social.socialId" value="@social.socialId" />
+                                <input type="hidden" asp-for="@social.eventDate" value="@social.eventDate" />
+                                <input type="hidden" asp-for="@social.eventTime" value="@social.eventTime" />
+                                <input type="hidden" asp-for="@social.attachment" value="@social.attachment" />
+                                <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
+                                <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
+                                <input asp-for="@social.approval" type="hidden" value="Lulus" />
+                                <button type="submit" class="btn btn-primary">Lulus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         }
+        @foreach (var social in ViewData["Socials"] as IEnumerable<Social>)
+        {
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal7-@social.socialId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@social.socialId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel-@social.socialId">Luluskan Permohonan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>Tarikh Program: @social.eventDate</p>
+                                <p>Masa Program: @social.eventTime</p>
+                                <p>Lampiran: @social.attachment</p>
+                                <p>Nota: @social.remarks</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <form method="post" asp-action="SocialApproval" enctype="multipart/form-data" asp-route-id="@social.socialId">
+                                <input type="hidden" asp-for="@social.socialId" value="@social.socialId" />
+                                <input type="hidden" asp-for="@social.eventDate" value="@social.eventDate" />
+                                <input type="hidden" asp-for="@social.eventTime" value="@social.eventTime" />
+                                <input type="hidden" asp-for="@social.attachment" value="@social.attachment" />
+                                <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
+                                <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
+                                <input asp-for="@social.approval" type="hidden" value="Ditolak" />
+                                <button type="submit" class="btn btn-danger">Tolak</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
         @foreach (var classes in ViewData["Classes"] as IEnumerable<Class>)
         {
+            @if (classes.approval == null)
+            {
             <tr>
                 <td>
                     @{
@@ -152,8 +287,8 @@
                 </td>
                 <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal3">Lihat</button></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Lulus</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">Tolak</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal8-@classes.classId">Lulus</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal9-@classes.classId">Tolak</button>
                 </td>
             </tr>
 
@@ -175,6 +310,77 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+        @foreach (var classes in ViewData["Classes"] as IEnumerable<Class>)
+        {
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal8-@classes.classId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@classes.classId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel-@classes.classId">Luluskan Permohonan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>Keperluan: @classes.equipment</p>
+                                <p>Lampiran: @classes.attachment</p>
+                                <p>Nota: @classes.remarks</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <form method="post" asp-action="ClassApproval" enctype="multipart/form-data" asp-route-id="@classes.classId">
+                                <input type="hidden" asp-for="@classes.classId" value="@classes.classId" />
+                                <input type="hidden" asp-for="@classes.equipment" value="@classes.equipment" />
+                                <input type="hidden" asp-for="@classes.attachment" value="@classes.attachment" />
+                                <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
+                                <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
+                                <input asp-for="@classes.approval" type="hidden" value="Lulus" />
+                                <button type="submit" class="btn btn-primary">Lulus</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var classes in ViewData["Classes"] as IEnumerable<Class>)
+        {
+            <!-- Modal for confirmation -->
+            <div class="modal fade" id="confirmModal9-@classes.classId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel-@classes.classId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel-@classes.classId">Luluskan Permohonan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p>Keperluan: @classes.equipment</p>
+                                <p>Lampiran: @classes.attachment</p>
+                                <p>Nota: @classes.remarks</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            <form method="post" asp-action="ClassApproval" enctype="multipart/form-data" asp-route-id="@classes.classId">
+                                <input type="hidden" asp-for="@classes.classId" value="@classes.classId" />
+                                <input type="hidden" asp-for="@classes.equipment" value="@classes.equipment" />
+                                <input type="hidden" asp-for="@classes.attachment" value="@classes.attachment" />
+                                <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
+                                <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
+                                <input asp-for="@classes.approval" type="hidden" value="Ditolak" />
+                                <button type="submit" class="btn btn-danger">Tolak</button>
+                            </form>
                         </div>
                     </div>
                 </div>

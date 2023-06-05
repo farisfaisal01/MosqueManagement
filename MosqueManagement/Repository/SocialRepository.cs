@@ -35,5 +35,11 @@ namespace MosqueManagement.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool Update(Social social)
+        {
+            _context.Update(social);
+            return Save();
+        }
     }
 }

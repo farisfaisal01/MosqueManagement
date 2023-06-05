@@ -84,7 +84,7 @@ namespace MosqueManagement.Controllers
                 }
             }
             _serviceRepository.Add(service);
-            TempData["CreateSuccessMessage"] = "Data servis berjaya ditambah!";
+            TempData["CreateSuccessMessage"] = "Data perkhidmatan berjaya ditambah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -140,7 +140,7 @@ namespace MosqueManagement.Controllers
                 }
             }
 
-            TempData["UpdateSuccessMessage"] = "Perincian perniagaan berjaya diubah!";
+            TempData["UpdateSuccessMessage"] = "Perincian perkhidmatan berjaya diubah!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -176,7 +176,7 @@ namespace MosqueManagement.Controllers
                 }
             }
             _serviceRepository.Delete(service);
-            TempData["DeleteSuccessMessage"] = "Data perniagaan berjaya dipadam!";
+            TempData["DeleteSuccessMessage"] = "Data perkhidmatan berjaya dipadam!";
             return RedirectToAction("AdminIndex");
         }
 
@@ -193,6 +193,87 @@ namespace MosqueManagement.Controllers
             ViewData["Classes"] = classes;
 
             return View();
+        }
+
+        public async Task<IActionResult> RentalApproval(int id)
+        {
+            Rental rental = await _rentalRepository.GetByIdAsync(id);
+            if (rental == null)
+            {
+                return NotFound();
+            }
+            return View(rental);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RentalApproval(int id, Rental rental)
+        {
+            if (id != rental.rentalId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(rental);
+            }
+            _rentalRepository.Update(rental);
+
+            TempData["UpdateSuccessMessage"] = "Keputusan disahkan!";
+            return RedirectToAction("Approve");
+        }
+
+        public async Task<IActionResult> SocialApproval(int id)
+        {
+            Social social = await _socialRepository.GetByIdAsync(id);
+            if (social == null)
+            {
+                return NotFound();
+            }
+            return View(social);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SocialApproval(int id, Social social)
+        {
+            if (id != social.socialId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(social);
+            }
+            _socialRepository.Update(social);
+
+            TempData["UpdateSuccessMessage"] = "Keputusan disahkan!";
+            return RedirectToAction("Approve");
+        }
+
+        public async Task<IActionResult> ClassApproval(int id)
+        {
+            Class classes = await _classRepository.GetByIdAsync(id);
+            if (classes == null)
+            {
+                return NotFound();
+            }
+            return View(classes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClassApproval(int id, Class classes)
+        {
+            if (id != classes.classId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(classes);
+            }
+            _classRepository.Update(classes);
+
+            TempData["UpdateSuccessMessage"] = "Keputusan disahkan!";
+            return RedirectToAction("Approve");
         }
     }
 }
