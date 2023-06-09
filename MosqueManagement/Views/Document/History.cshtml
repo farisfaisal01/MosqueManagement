@@ -1,0 +1,161 @@
+﻿@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Permohonan</h1>
+            <p class="lead text-body-secondary">Lihat sejarah permohonan servis tawaran Masjid!</p>
+        </div>
+    </div>
+</section>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nama Servis</th>
+            <th scope="col">Perincian</th>
+            <th scope="col">Kelulusan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
+        {
+            @if (rental.approval != null)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == rental.serviceId);
+                            if (service != null)
+                            {
+                                <span>@service.serviceName</span>
+                            }
+                        }
+                    </td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Lihat</button></td>
+                    <td>
+                        <span>@rental.approval</span>
+                    </td>
+                </tr>
+
+                <!-- Modal for confirmation -->
+                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Perincian Permohonan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>Nama Program: @rental.eventName</p>
+                                    <p>Perincian Program: @rental.eventDescription</p>
+                                    <p>Tarikh Mula: @rental.startDate</p>
+                                    <p>Tarikh Tamat: @rental.endDate</p>
+                                    <p>Lampiran: @rental.attachment</p>
+                                    <p>Nota: @rental.remarks</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @foreach (var social in ViewData["Socials"] as IEnumerable<Social>)
+        {
+            @if (social.approval != null)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == social.serviceId);
+                            if (service != null)
+                            {
+                                <span>@service.serviceName</span>
+                            }
+                        }
+                    </td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal2">Lihat</button></td>
+                    <td>
+                        <span>@social.approval</span>
+                    </td>
+                </tr>
+
+                <!-- Modal for confirmation -->
+                <div class="modal fade" id="confirmModal2" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Perincian Permohonan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>Tarikh Program: @social.eventDate</p>
+                                    <p>Masa Program: @social.eventTime</p>
+                                    <p>Nota: @social.remarks</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @foreach (var classes in ViewData["Classes"] as IEnumerable<Class>)
+        {
+            @if (classes.approval != null)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == classes.serviceId);
+                            if (service != null)
+                            {
+                                <span>@service.serviceName</span>
+                            }
+                        }
+                    </td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal3">Lihat</button></td>
+                    <td>
+                        <span>@classes.approval</span>
+                    </td>
+                </tr>
+
+                <!-- Modal for confirmation -->
+                <div class="modal fade" id="confirmModal3" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Perincian Permohonan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>Keperluan: @classes.equipment</p>
+                                    <p>Nota: @classes.remarks</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </tbody>
+</table>
