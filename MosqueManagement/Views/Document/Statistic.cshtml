@@ -1,0 +1,175 @@
+﻿@{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+    int currentMonth = DateTime.Now.Month;
+    int currentYear = DateTime.Now.Year;
+
+    int approvedRentalsCount = 0;
+    int approvedSocialsCount = 0;
+    int approvedClassesCount = 0;
+    int disapprovedRentalsCount = 0;
+    int disapprovedSocialsCount = 0;
+    int disapprovedClassesCount = 0;
+    int nonapprovedRentalsCount = 0;
+    int nonapprovedSocialsCount = 0;
+    int nonapprovedClassesCount = 0;
+    int eventsCountMonthly = 0; 
+    int eventsCountYearly = 0;
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Statistik</h1>
+            <p class="lead text-body-secondary">Lihat Perkembangan Perkhidmatan Masjid!</p>
+        </div>
+    </div>
+</section>
+
+@foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
+{
+    DateTime eventDate = DateTime.Parse(rental.startDate); // Parse the event date from string to DateTime
+
+    if (eventDate.Month == currentMonth && eventDate.Year == currentYear && rental.approval == "Lulus")
+    {
+        eventsCountMonthly++;
+    }
+    if (eventDate.Year == currentYear && rental.approval == "Lulus")
+    {
+        eventsCountYearly++;
+    }
+
+    if (rental.approval == "Lulus")
+    {
+        approvedRentalsCount++;
+    }
+    if (rental.approval == "Ditolak")
+    {
+        disapprovedRentalsCount++;
+    }
+    if (rental.approval == null)
+    {
+        nonapprovedRentalsCount++;
+    }
+
+}
+
+@foreach (var social in ViewData["Socials"] as IEnumerable<Social>)
+{
+    DateTime eventDate = DateTime.Parse(social.eventDate); // Parse the event date from string to DateTime
+
+    if (eventDate.Month == currentMonth && eventDate.Year == currentYear && social.approval == "Lulus")
+    {
+        eventsCountMonthly++;
+    }
+    if (eventDate.Year == currentYear && social.approval == "Lulus")
+    {
+        eventsCountYearly ++;
+    }
+
+    if (social.approval == "Lulus")
+    {
+        approvedSocialsCount++;
+    }
+    if (social.approval == "Ditolak")
+    {
+        disapprovedSocialsCount++;
+    }
+    if (social.approval == null)
+    {
+        nonapprovedSocialsCount++;
+    }
+
+}
+
+@foreach (var @class in ViewData["Classes"] as IEnumerable<Class>)
+{
+
+    if (@class.approval == "Lulus")
+    {
+        approvedClassesCount++;
+    }
+    if (@class.approval == "Ditolak")
+    {
+        disapprovedClassesCount++;
+    }
+    if (@class.approval == null)
+    {
+        nonapprovedClassesCount++;
+    }
+
+}
+
+@{
+    int totalCountApproved = approvedRentalsCount + approvedSocialsCount + approvedClassesCount;
+    int totalCountDisapproved = disapprovedRentalsCount + disapprovedSocialsCount + disapprovedClassesCount;
+    int totalCountNonapproved = nonapprovedRentalsCount + nonapprovedSocialsCount + nonapprovedClassesCount;
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Tarikh Hari Ini</div>
+                    <div class="card-body">
+                        <h5 class="card-title"><script>document.write(new Date().toLocaleDateString());</script></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Bilangan Program Bulan Ini</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@eventsCountMonthly</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Bilangan Program Tahun Ini</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@eventsCountYearly</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Bilangan Permohonan Belum Disemak</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@totalCountNonapproved</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Bilangan Lulus Permohonan</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@totalCountApproved</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-deck">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Bilangan Permohonan Yang Ditolak</div>
+                    <div class="card-body">
+                        <h5 class="card-title">@totalCountDisapproved</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

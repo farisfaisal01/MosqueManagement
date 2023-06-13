@@ -305,5 +305,20 @@ namespace MosqueManagement.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> Statistic()
+        {
+            IEnumerable<Service> services = await _serviceRepository.GetAll();
+            IEnumerable<Rental> rentals = await _rentalRepository.GetAll();
+            IEnumerable<Social> socials = await _socialRepository.GetAll();
+            IEnumerable<Class> classes = await _classRepository.GetAll();
+
+            ViewData["Services"] = services;
+            ViewData["Rentals"] = rentals;
+            ViewData["Socials"] = socials;
+            ViewData["Classes"] = classes;
+
+            return View();
+        }
     }
 }
