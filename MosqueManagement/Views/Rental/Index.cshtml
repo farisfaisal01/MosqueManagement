@@ -17,12 +17,12 @@
     </div>
     <div class="form-group">
         <label asp-for="startDate">Tarikh Mula</label>
-        <input asp-for="startDate" type="date" id="startDate" name="startDate" class="form-control" placeholder="Isi tarikh mula program">
+        <input asp-for="startDate" type="date" id="startDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="startDate" class="form-control" placeholder="Isi tarikh mula program">
         <span asp-validation-for="startDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="endDate">Tarikh Tamat</label>
-        <input asp-for="endDate" type="date" id="endDate" name="endDate" class="form-control" placeholder="Isi tarikh tamat program">
+        <input asp-for="endDate" type="date" id="endDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="endDate" class="form-control" placeholder="Isi tarikh tamat program">
         <span asp-validation-for="endDate" class="text-danger"></span>
     </div>
     <div class="form-group">
