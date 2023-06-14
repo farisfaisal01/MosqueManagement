@@ -34,14 +34,14 @@
                             }
                         }
                     </td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Lihat</button></td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal-@rental.rentalId">Lihat</button></td>
                     <td>
                         <span>@rental.approval</span>
                     </td>
                 </tr>
 
                 <!-- Modal for confirmation -->
-                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmModal-@rental.rentalId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -56,7 +56,7 @@
                                     <p>Perincian Program: @rental.eventDescription</p>
                                     <p>Tarikh Mula: @rental.startDate</p>
                                     <p>Tarikh Tamat: @rental.endDate</p>
-                                    <p>Lampiran: @rental.rentalAttachment</p>
+                                    <p>Lampiran:<a href="@Url.Action("Download", "Document", new { id = rental.rentalId })" class="btn btn-primary" download>Download PDF</a></p>
                                     <p>Nota: @rental.remarks</p>
                                 </div>
                             </div>
@@ -82,14 +82,14 @@
                             }
                         }
                     </td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal2">Lihat</button></td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal2-@social.socialId">Lihat</button></td>
                     <td>
                         <span>@social.approval</span>
                     </td>
                 </tr>
 
                 <!-- Modal for confirmation -->
-                <div class="modal fade" id="confirmModal2" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmModal2-@social.socialId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -103,6 +103,7 @@
                                     <p>Tarikh Program: @social.eventDate</p>
                                     <p>Masa Program: @social.eventTime</p>
                                     <p>Nota: @social.remarks</p>
+                                    <p>Lampiran:<a href="@Url.Action("Download", "Document", new { id = social.socialId })" class="btn btn-primary" download>Download PDF</a></p>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -127,14 +128,14 @@
                             }
                         }
                     </td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal3">Lihat</button></td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal3-@classes.classId">Lihat</button></td>
                     <td>
                         <span>@classes.approval</span>
                     </td>
                 </tr>
 
                 <!-- Modal for confirmation -->
-                <div class="modal fade" id="confirmModal3" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmModal3-@classes.classId" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -147,6 +148,7 @@
                                 <div>
                                     <p>Keperluan: @classes.equipment</p>
                                     <p>Nota: @classes.remarks</p>
+                                    <p>Lampiran:<a href="@Url.Action("Download", "Document", new { id = @classes.classId })" class="btn btn-primary" download>Download PDF</a></p>
                                 </div>
                             </div>
                             <div class="modal-footer">

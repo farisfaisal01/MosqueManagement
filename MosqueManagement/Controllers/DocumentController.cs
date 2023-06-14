@@ -323,26 +323,45 @@ namespace MosqueManagement.Controllers
         }
         public async Task<IActionResult> Download(int id)
         {
-            // Retrieve the rental by ID
             Rental rental = await _rentalRepository.GetByIdAsync(id);
+            Social social = await _socialRepository.GetByIdAsync(id);
+            Class classes = await _classRepository.GetByIdAsync(id);
 
             if (rental != null && !string.IsNullOrEmpty(rental.rentalAttachmentPath))
             {
                 string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Attachment", rental.rentalAttachmentPath);
 
-                // Check if the file exists
                 if (System.IO.File.Exists(filePath))
                 {
-                    var fileBytes = System.IO.File.ReadAllBytes(filePath);
-                    return File(fileBytes, "application/octet-stream", rental.rentalAttachmentPath);
+                    var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    return File(fileStream, "application/octet-stream", rental.rentalAttachmentPath);
                 }
             }
 
-            // If the file does not exist or the rental is not found, return a not found result
+            if (social != null && !string.IsNullOrEmpty(social.socialAttachmentPath))
+            {
+                string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Attachment", social.socialAttachmentPath);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    return File(fileStream, "application/octet-stream", social.socialAttachmentPath);
+                }
+            }
+
+            if (classes != null && !string.IsNullOrEmpty(classes.classAttachmentPath))
+            {
+                string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Attachment", classes.classAttachmentPath);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    return File(fileStream, "application/octet-stream", classes.classAttachmentPath);
+                }
+            }
+
             return NotFound();
         }
-
-
 
     }
 }
