@@ -40,13 +40,13 @@
                         <span>@rental.approval</span>
                     </td>
                     
-                    @*@if (rental.approval == "Lulus")
+                    @if (rental.approval == "Lulus")
                     {
                         <td>
                             <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("ServicePay", "Payment",new{id = rental.rentalId})'">Bayar</button>
 
                         </td>
-                    }*@
+                    }
                 </tr>
 
                 <!-- Modal for confirmation -->
