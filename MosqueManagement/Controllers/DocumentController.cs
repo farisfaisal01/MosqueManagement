@@ -7,6 +7,7 @@ using MosqueManagement.Repository;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.IO.Pipes;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace MosqueManagement.Controllers
 {
@@ -320,5 +321,28 @@ namespace MosqueManagement.Controllers
 
             return View();
         }
+        public async Task<IActionResult> Download(int id)
+        {
+            // Retrieve the rental by ID
+            Rental rental = await _rentalRepository.GetByIdAsync(id);
+
+            if (rental != null && !string.IsNullOrEmpty(rental.rentalAttachmentPath))
+            {
+                string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Attachment", rental.rentalAttachmentPath);
+
+                // Check if the file exists
+                if (System.IO.File.Exists(filePath))
+                {
+                    var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                    return File(fileBytes, "application/octet-stream", rental.rentalAttachmentPath);
+                }
+            }
+
+            // If the file does not exist or the rental is not found, return a not found result
+            return NotFound();
+        }
+
+
+
     }
 }

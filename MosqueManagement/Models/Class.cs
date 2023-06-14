@@ -10,7 +10,9 @@ namespace MosqueManagement.Models
         public string ? equipment { get; set; }
         public string ? approval { get; set; }
         public string ? remarks { get; set; }
-        public string ? attachment { get; set; }
+        public string? classAttachmentPath { get; set; }
+        [NotMapped]
+        public IFormFile? classAttachment { get; set; }
 
         [ForeignKey("Service")]
         public int? serviceId { get; set; }

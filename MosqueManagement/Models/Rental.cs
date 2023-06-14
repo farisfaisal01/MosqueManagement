@@ -13,7 +13,9 @@ namespace MosqueManagement.Models
         public string ? endDate { get; set; }
         public string ? approval { get; set; }
         public string ? remarks { get; set; }
-        public string ? attachment { get; set; }
+        public string? rentalAttachmentPath { get; set; }
+        [NotMapped]
+        public IFormFile? rentalAttachment { get; set; }
 
         [ForeignKey("Service")]
         public int? serviceId { get; set; }

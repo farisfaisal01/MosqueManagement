@@ -57,7 +57,9 @@
                                 <p>Perincian Program: @rental.eventDescription</p>
                                 <p>Tarikh Mula: @rental.startDate</p>
                                 <p>Tarikh Tamat: @rental.endDate</p>
-                                <p>Lampiran: @rental.attachment</p>
+                                    <p>
+                                        
+                                    </p>
                                 <p>Nota: @rental.remarks</p>
                             </div>
                         </div>
@@ -87,7 +89,7 @@
                                 <p>Perincian Program: @rental.eventDescription</p>
                                 <p>Tarikh Mula: @rental.startDate</p>
                                 <p>Tarikh Tamat: @rental.endDate</p>
-                                <p>Lampiran: @rental.attachment</p>
+                                <p>Lampiran: @rental.rentalAttachment</p>
                                 <p>Nota: @rental.remarks</p>
                             </div>
                         </div>
@@ -99,7 +101,7 @@
                                 <input type="hidden" asp-for="@rental.eventDescription" value="@rental.eventDescription" />
                                 <input type="hidden" asp-for="@rental.startDate" value="@rental.startDate" />
                                 <input type="hidden" asp-for="@rental.endDate" value="@rental.endDate" />
-                                <input type="hidden" asp-for="@rental.attachment" value="@rental.attachment" />
+                                <input type="hidden" asp-for="@rental.rentalAttachment" value="@rental.rentalAttachment" />
                                 <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
                                 <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
                                 <input asp-for="@rental.approval" type="hidden" value="Lulus" />
@@ -128,7 +130,7 @@
                                 <p>Perincian Program: @rental.eventDescription</p>
                                 <p>Tarikh Mula: @rental.startDate</p>
                                 <p>Tarikh Tamat: @rental.endDate</p>
-                                <p>Lampiran: @rental.attachment</p>
+                                <p>Lampiran: @rental.rentalAttachment</p>
                                 <p>Nota: @rental.remarks</p>
                             </div>
                         </div>
@@ -140,7 +142,7 @@
                                 <input type="hidden" asp-for="@rental.eventDescription" value="@rental.eventDescription" />
                                 <input type="hidden" asp-for="@rental.startDate" value="@rental.startDate" />
                                 <input type="hidden" asp-for="@rental.endDate" value="@rental.endDate" />
-                                <input type="hidden" asp-for="@rental.attachment" value="@rental.attachment" />
+                                <input type="hidden" asp-for="@rental.rentalAttachment" value="@rental.rentalAttachment" />
                                 <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
                                 <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
                                 <input asp-for="@rental.approval" type="hidden" value="Ditolak" />
@@ -213,7 +215,7 @@
                             <div>
                                 <p>Tarikh Program: @social.eventDate</p>
                                 <p>Masa Program: @social.eventTime</p>
-                                <p>Lampiran: @social.attachment</p>
+                                <p>Lampiran: @social.socialAttachment</p>
                                 <p>Nota: @social.remarks</p>
                             </div>
                         </div>
@@ -223,7 +225,7 @@
                                 <input type="hidden" asp-for="@social.socialId" value="@social.socialId" />
                                 <input type="hidden" asp-for="@social.eventDate" value="@social.eventDate" />
                                 <input type="hidden" asp-for="@social.eventTime" value="@social.eventTime" />
-                                <input type="hidden" asp-for="@social.attachment" value="@social.attachment" />
+                                <input type="hidden" asp-for="@social.socialAttachment" value="@social.socialAttachment" />
                                 <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
                                 <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
                                 <input asp-for="@social.approval" type="hidden" value="Lulus" />
@@ -250,7 +252,7 @@
                             <div>
                                 <p>Tarikh Program: @social.eventDate</p>
                                 <p>Masa Program: @social.eventTime</p>
-                                <p>Lampiran: @social.attachment</p>
+                                <p>Lampiran: @social.socialAttachment</p>
                                 <p>Nota: @social.remarks</p>
                             </div>
                         </div>
@@ -260,7 +262,7 @@
                                 <input type="hidden" asp-for="@social.socialId" value="@social.socialId" />
                                 <input type="hidden" asp-for="@social.eventDate" value="@social.eventDate" />
                                 <input type="hidden" asp-for="@social.eventTime" value="@social.eventTime" />
-                                <input type="hidden" asp-for="@social.attachment" value="@social.attachment" />
+                                <input type="hidden" asp-for="@social.socialAttachment" value="@social.socialAttachment" />
                                 <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
                                 <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
                                 <input asp-for="@social.approval" type="hidden" value="Ditolak" />
@@ -331,7 +333,7 @@
                         <div class="modal-body">
                             <div>
                                 <p>Keperluan: @classes.equipment</p>
-                                <p>Lampiran: @classes.attachment</p>
+                                <p>Lampiran: @classes.classAttachment</p>
                                 <p>Nota: @classes.remarks</p>
                             </div>
                         </div>
@@ -340,7 +342,7 @@
                             <form method="post" asp-action="ClassApproval" enctype="multipart/form-data" asp-route-id="@classes.classId">
                                 <input type="hidden" asp-for="@classes.classId" value="@classes.classId" />
                                 <input type="hidden" asp-for="@classes.equipment" value="@classes.equipment" />
-                                <input type="hidden" asp-for="@classes.attachment" value="@classes.attachment" />
+                                <input type="hidden" asp-for="@classes.classAttachment" value="@classes.classAttachment" />
                                 <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
                                 <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
                                 <input asp-for="@classes.approval" type="hidden" value="Lulus" />
@@ -366,7 +368,7 @@
                         <div class="modal-body">
                             <div>
                                 <p>Keperluan: @classes.equipment</p>
-                                <p>Lampiran: @classes.attachment</p>
+                                <p>Lampiran: @classes.classAttachment</p>
                                 <p>Nota: @classes.remarks</p>
                             </div>
                         </div>
@@ -375,7 +377,7 @@
                             <form method="post" asp-action="ClassApproval" enctype="multipart/form-data" asp-route-id="@classes.classId">
                                 <input type="hidden" asp-for="@classes.classId" value="@classes.classId" />
                                 <input type="hidden" asp-for="@classes.equipment" value="@classes.equipment" />
-                                <input type="hidden" asp-for="@classes.attachment" value="@classes.attachment" />
+                                <input type="hidden" asp-for="@classes.classAttachment" value="@classes.classAttachment" />
                                 <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
                                 <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
                                 <input asp-for="@classes.approval" type="hidden" value="Ditolak" />

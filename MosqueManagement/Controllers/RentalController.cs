@@ -11,11 +11,13 @@ namespace MosqueManagement.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IRentalRepository _rentalRepository;
         private readonly IServiceRepository _serviceRepository;
-        public RentalController(ApplicationDbContext context, IRentalRepository rentalRepository, IServiceRepository serviceRepository)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public RentalController(ApplicationDbContext context, IRentalRepository rentalRepository, IServiceRepository serviceRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _rentalRepository = rentalRepository;
             _serviceRepository = serviceRepository;
+            webHostEnvironment = webHost;
         }
         public async Task<IActionResult> Index(int id)
         {
@@ -31,6 +33,18 @@ namespace MosqueManagement.Controllers
             if (!ModelState.IsValid)
             {
                 return View(rental);
+            }
+            string fileName = null;
+            if (rental.rentalAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Attachment");
+                fileName = Guid.NewGuid().ToString() + "_" + rental.rentalAttachment.FileName;
+                rental.rentalAttachmentPath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    rental.rentalAttachment.CopyTo(fileStream);
+                }
             }
             _rentalRepository.Add(rental);
             TempData["CreateSuccessMessage"] = "Permohonan anda berjaya. Terima kasih!";

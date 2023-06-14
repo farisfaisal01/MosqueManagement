@@ -16,9 +16,12 @@
         <span asp-validation-for="remarks" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="attachment">Kepilan</label>
-        <input asp-for="attachment" type="text" id="attachment" name="attachment" class="form-control" placeholder="Isi kepilan">
-        <span asp-validation-for="attachment" class="text-danger"></span>
+        <label asp-for="classAttachment" class="control-label">Lampiran</label>
+        <div class="custom-file">
+            <input asp-for="classAttachment" type="file" class="custom-file-input" accept=".pdf" id="classAttachment" onchange="document.getElementById('ClassAttachment').src = window.URL.createObjectURL(this.files[0]">
+            <label class="custom-file-label" for="classAttachment"></label>
+        </div>
+        <span asp-validation-for="classAttachment" class="text-danger"></span>
     </div>
     <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId" value="@service.serviceId" />
     <br />
@@ -45,3 +48,10 @@
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })
+</script>

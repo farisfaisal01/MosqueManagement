@@ -11,7 +11,10 @@ namespace MosqueManagement.Models
         public string ? eventTime { get; set; }
         public string ? approval { get; set; }
         public string ? remarks { get; set; }
-        public string ? attachment { get; set; }
+        public string? socialAttachmentPath { get; set; }
+        [NotMapped]
+        public IFormFile? socialAttachment { get; set; }
+
 
         [ForeignKey("Service")]
         public int? serviceId { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MosqueManagement.Data;
 
@@ -11,9 +12,11 @@ using MosqueManagement.Data;
 namespace MosqueManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230613205227_pdf")]
+    partial class pdf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,10 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("classAttachmentPath")
+                    b.Property<string>("attachment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("equipment")
@@ -177,6 +183,9 @@ namespace MosqueManagement.Migrations
                     b.Property<string>("approval")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("attachment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("endDate")
                         .HasColumnType("nvarchar(max)");
 
@@ -276,6 +285,9 @@ namespace MosqueManagement.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("socialId"));
 
                     b.Property<string>("approval")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("attachment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("eventDate")
