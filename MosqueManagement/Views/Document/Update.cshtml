@@ -39,7 +39,6 @@
         <label asp-for="updatedServiceAttachment" class="control-label">Gambar Perniagaan</label>
         <div class="custom-file">
             <input asp-for="updatedServiceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="updatedServiceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]">
-            @*<label class="custom-file-label" for="updatedServiceAttachment"></label>*@
         </div>
         <span asp-validation-for="updatedServiceAttachment" class="text-danger"></span>
     </div>

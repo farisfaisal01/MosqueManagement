@@ -1,6 +1,7 @@
 ﻿@model Payment
 @{
     ViewData["Title"] = "Tabung Masjid";
+    Rental rental = ViewData["Rental"] as Rental;
 }
 
 <section class="py-5 text-center container">
@@ -25,20 +26,15 @@
     </div>
 </div>
 
-@if (TempData.ContainsKey("CreateSuccessMessage"))
-{
-    <div class="alert alert-success" role="alert">
-        @TempData["CreateSuccessMessage"]
-    </div>
-}
-
 <div class="row mb-3 text-center">
     <div class="col-sm-8 mb-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title mb-4" style="text-align:center;">Ayuh Sedekah!</h5>
                 <div style="text-align:justify;">
-                    <form method="post" asp-action="Index">
+                    <form method="post" asp-action="ServicePays" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="rentalId" value="@rental.rentalId" />
+                        <input type="hidden" asp-for="paymentId" />
                         <div class="form-group">
                             <label asp-for="paymentName">Nama</label>
                             <input asp-for="paymentName" class="form-control" placeholder="Isi nama anda">
@@ -125,13 +121,13 @@
                                 <input asp-for="paymentCardExpireYear" class="form-control" placeholder="Tahun">
                                 <span asp-validation-for="paymentCardExpireYear" class="text-danger"></span>
                             </div>
-                        </div>
+                            </div>
                         <br />
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" id="paymentButton">Bayar</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" id="paymentButton">Bayar</button>
 
-
+                        
                         <!-- Modal for confirmation -->
-                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -145,7 +141,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-primary">Bayar</button>
+                                         <button type="submit" class="btn btn-primary">Bayar</button>
                                     </div>
                                 </div>
                             </div>

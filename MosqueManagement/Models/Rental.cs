@@ -16,6 +16,8 @@ namespace MosqueManagement.Models
         public string? rentalAttachmentPath { get; set; }
         [NotMapped]
         public IFormFile? rentalAttachment { get; set; }
+        [NotMapped]
+        public IFormFile? updatedRentalAttachment { get; set; }
 
         [ForeignKey("Service")]
         public int? serviceId { get; set; }

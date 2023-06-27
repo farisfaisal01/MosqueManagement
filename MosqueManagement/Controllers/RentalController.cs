@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
+using MosqueManagement.Migrations;
 using MosqueManagement.Models;
 using MosqueManagement.Repository;
 
@@ -11,12 +12,14 @@ namespace MosqueManagement.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IRentalRepository _rentalRepository;
         private readonly IServiceRepository _serviceRepository;
+        private readonly IPaymentRepository _paymentRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public RentalController(ApplicationDbContext context, IRentalRepository rentalRepository, IServiceRepository serviceRepository, IWebHostEnvironment webHost)
+        public RentalController(ApplicationDbContext context, IRentalRepository rentalRepository, IServiceRepository serviceRepository, IPaymentRepository paymentRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _rentalRepository = rentalRepository;
             _serviceRepository = serviceRepository;
+            _paymentRepository = paymentRepository;
             webHostEnvironment = webHost;
         }
         public async Task<IActionResult> Index(int id)

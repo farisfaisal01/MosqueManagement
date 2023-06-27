@@ -1,0 +1,31 @@
+﻿@model Rental
+@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<h1>Payment Successful</h1>
+
+<p>Your payment was successful. Thank you!</p>
+
+@foreach (var payment in ViewData["Payments"] as IEnumerable<Payment>)
+{
+    if (Model.rentalId.HasValue && Model.rentalId.Value.ToString() == payment.rentalId)
+    {
+<form id="updatePayment" asp-action="RentalSuccess" method="post">
+    <input type="hidden" asp-for="rentalId" />
+            <input asp-for="eventName" type="hidden" id="eventName" name="eventName" class="form-control" placeholder="Isi nama program">
+            <input asp-for="eventDescription" type="hidden" id="eventDescription" name="eventDescription" class="form-control" placeholder="Isi penerangan program">
+            <input asp-for="startDate" type="hidden" id="startDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="startDate" class="form-control" placeholder="Isi tarikh mula program">
+            <input asp-for="endDate" type="hidden" id="endDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="endDate" class="form-control" placeholder="Isi tarikh tamat program">
+            <input asp-for="remarks" type="hidden" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+            <input asp-for="rentalAttachmentPath" type="hidden" id="rentalAttachmentPath" name="rentalAttachmentPath" class="form-control">
+            <input asp-for="approval" type="hidden" id="approval" name="approval" />
+    <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId"/>
+    <input asp-for="paymentId" type="hidden" id="paymentId" name="paymentId" value="@payment.paymentId" />
+
+    <br />
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Selesai</button>
+        </form>
+        break;
+        }
+        }

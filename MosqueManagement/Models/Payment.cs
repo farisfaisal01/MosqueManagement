@@ -17,5 +17,8 @@ namespace MosqueManagement.Models
         public string? paymentCardCVC { get; set; }
         public string? paymentCardExpireMonth { get; set; }
         public string? paymentCardExpireYear { get; set; }
+        public string? rentalId { get; set; }
+        public string? socialId { get; set; }
+        public string? classId { get; set; }
     }
 }

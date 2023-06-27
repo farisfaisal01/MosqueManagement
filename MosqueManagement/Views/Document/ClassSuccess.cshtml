@@ -1,0 +1,27 @@
+﻿@model Class
+@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<h1>Payment Successful</h1>
+
+<p>Your payment was successful. Thank you!</p>
+
+@foreach (var payment in ViewData["Payments"] as IEnumerable<Payment>)
+{
+    if (Model.classId.HasValue && Model.classId.Value.ToString() == payment.classId)
+    {
+<form id="updatePayment" asp-action="ClassSuccess" method="post">
+            <input type="hidden" asp-for="classId" />
+            <input asp-for="equipment" type="hidden" id="equipment" name="equipment" class="form-control" placeholder="Isi peralatan keperluan">
+            <input asp-for="remarks" type="hidden" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+            <input asp-for="classAttachmentPath" type="hidden" id="classAttachmentPath" name="classAttachmentPath" class="form-control">
+            <input asp-for="approval" type="hidden" id="approval" name="approval" />
+    <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId"/>
+    <input asp-for="paymentId" type="hidden" id="paymentId" name="paymentId" value="@payment.paymentId" />
+
+    <br />
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Selesai</button>
+        </form>
+        break;
+        }}

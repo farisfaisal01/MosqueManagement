@@ -19,8 +19,9 @@ namespace MosqueManagement.Controllers
         private readonly IRentalRepository _rentalRepository;
         private readonly ISocialRepository _socialRepository;
         private readonly IClassRepository _classRepository;
+        private readonly IPaymentRepository _paymentRepository;
 
-        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository)
+        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IPaymentRepository paymentRepository)
         {
             _context = context;
             _serviceRepository = serviceRepository;
@@ -28,6 +29,7 @@ namespace MosqueManagement.Controllers
             _rentalRepository = rentalRepository;
             _socialRepository = socialRepository;
             _classRepository = classRepository;
+            _paymentRepository = paymentRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -298,13 +300,108 @@ namespace MosqueManagement.Controllers
             IEnumerable<Rental> rentals = await _rentalRepository.GetAll();
             IEnumerable<Social> socials = await _socialRepository.GetAll();
             IEnumerable<Class> classes = await _classRepository.GetAll();
+            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
 
             ViewData["Services"] = services;
             ViewData["Rentals"] = rentals;
             ViewData["Socials"] = socials;
             ViewData["Classes"] = classes;
+            ViewData["Payments"] = payments;
 
             return View();
+        }
+
+        public async Task<IActionResult> RentalSuccess(int id)
+        {
+            Rental rental = await _rentalRepository.GetByIdAsync(id);
+            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
+            ViewData["Payments"] = payments;
+
+            if (rental == null)
+            {
+                return NotFound();
+            }
+            return View(rental);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RentalSuccess(int id, Rental rental)
+        {
+            if (id != rental.rentalId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(rental);
+            }
+
+            _rentalRepository.Update(rental);
+
+            TempData["UpdateSuccessMessage"] = "Bayaran perkhidmatan berjaya!";
+            return RedirectToAction("History");
+        }
+
+        public async Task<IActionResult> SocialSuccess(int id)
+        {
+            Social social = await _socialRepository.GetByIdAsync(id);
+            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
+            ViewData["Payments"] = payments;
+
+            if (social == null)
+            {
+                return NotFound();
+            }
+            return View(social);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SocialSuccess(int id, Social social)
+        {
+            if (id != social.socialId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(social);
+            }
+
+            _socialRepository.Update(social);
+
+            TempData["UpdateSuccessMessage"] = "Bayaran perkhidmatan berjaya!";
+            return RedirectToAction("History");
+        }
+
+        public async Task<IActionResult> ClassSuccess(int id)
+        {
+            Class classes = await _classRepository.GetByIdAsync(id);
+            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
+            ViewData["Payments"] = payments;
+
+            if (classes == null)
+            {
+                return NotFound();
+            }
+            return View(classes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClassSuccess(int id, Class classes)
+        {
+            if (id != classes.classId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(classes);
+            }
+
+            _classRepository.Update(classes);
+
+            TempData["UpdateSuccessMessage"] = "Bayaran perkhidmatan berjaya!";
+            return RedirectToAction("History");
         }
 
         public async Task<IActionResult> Statistic()

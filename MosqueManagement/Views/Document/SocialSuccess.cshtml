@@ -1,0 +1,28 @@
+﻿@model Social
+@{
+    ViewData["Title"] = "Payment Success";
+}
+
+<h1>Payment Successful</h1>
+
+<p>Your payment was successful. Thank you!</p>
+
+@foreach (var payment in ViewData["Payments"] as IEnumerable<Payment>)
+{
+    if (Model.socialId.HasValue && Model.socialId.Value.ToString() == payment.socialId)
+    {
+<form id="updatePayment" asp-action="SocialSuccess" method="post">
+            <input type="hidden" asp-for="socialId" />
+            <input asp-for="eventDate" type="hidden" id="eventDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="eventDate" class="form-control" placeholder="Isi tarikh program">
+            <input asp-for="eventTime" type="hidden" id="eventTime" name="eventTime" class="form-control" placeholder="Isi masa program">
+            <input asp-for="remarks" type="hidden" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+            <input asp-for="socialAttachmentPath" type="hidden" id="socialAttachmentPath" name="socialAttachmentPath" class="form-control">
+            <input asp-for="approval" type="hidden" id="approval" name="approval" />
+    <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId"/>
+    <input asp-for="paymentId" type="hidden" id="paymentId" name="paymentId" value="@payment.paymentId" />
+
+    <br />
+    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Selesai</button>
+        </form>
+        break;
+        }}

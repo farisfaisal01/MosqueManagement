@@ -13,14 +13,16 @@ namespace MosqueManagement.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IPaymentRepository _paymentRepository;
         private readonly IRentalRepository _rentalRepository;
+        private readonly IServiceRepository _serviceRepository;
         private readonly ISocialRepository _socialRepository;
         private readonly IClassRepository _classRepository;
-        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository)
+        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IServiceRepository serviceRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository)
         {
             _context = context;
             _paymentRepository = paymentRepository;
             _rentalRepository = rentalRepository;
             _socialRepository = socialRepository;
+            _serviceRepository = serviceRepository;
             _classRepository = classRepository;
         }
         public IActionResult Index()
@@ -40,36 +42,79 @@ namespace MosqueManagement.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> RentalServicePay(int id)
+        {
+            Rental rental = await _rentalRepository.GetByIdAsync(id);
 
-        //public async Task<IActionResult> ServicePay(int id)
-        //{
-        //    Rental rental = await _rentalRepository.GetByIdAsync(id);
-        //    if (rental == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(rental);
-        //}
+            if (rental == null)
+            {
+                return NotFound();
+            }
+            ViewData["Rental"] = rental;
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ServicePay(int id, Payment payment)
-        //{
-        //    Rental rental = await _rentalRepository.GetByIdAsync(id);
-        //    if (id != rental.rentalId)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> RentalServicePay(Payment payment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(payment);
+            }
+            _paymentRepository.Add(payment);
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(payment);
-        //    }
+            TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
+            return RedirectToAction("Success", "Document", new { id = payment.rentalId });
+        }
 
-        //    rental.paymentId = payment.paymentId; // Set the paymentId in the rental entity
-        //    _paymentRepository.Add(payment);
+        public async Task<IActionResult> SocialServicePay(int id)
+        {
+            Social social = await _socialRepository.GetByIdAsync(id);
 
-        //    TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
-        //    return RedirectToAction("History");
-        //}
+            if (social == null)
+            {
+                return NotFound();
+            }
+            ViewData["Social"] = social;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SocialServicePay(Payment payment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(payment);
+            }
+            _paymentRepository.Add(payment);
+
+            TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
+            return RedirectToAction("SocialSuccess", "Document", new { id = payment.socialId });
+        }
+
+        public async Task<IActionResult> ClassServicePay(int id)
+        {
+            Class claases = await _classRepository.GetByIdAsync(id);
+
+            if (claases == null)
+            {
+                return NotFound();
+            }
+            ViewData["Class"] = claases;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClassServicePay(Payment payment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(payment);
+            }
+            _paymentRepository.Add(payment);
+
+            TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
+            return RedirectToAction("ClassSuccess", "Document", new { id = payment.classId });
+        }
     }
 }

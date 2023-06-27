@@ -11,6 +11,13 @@
     </div>
 </section>
 
+@if (TempData.ContainsKey("CreateSuccessMessage"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["CreateSuccessMessage"]
+    </div>
+}
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -40,10 +47,24 @@
                         <span>@rental.approval</span>
                     </td>
                     
-                    @if (rental.approval == "Lulus")
+                    @if (rental.approval == "Lulus" && rental.paymentId == null)
                     {
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("ServicePay", "Payment",new{id = rental.rentalId})'">Bayar</button>
+                            <a asp-controller="Payment" asp-action="RentalServicePay" asp-route-id="@rental.rentalId" type="button" class="btn btn-primary">Bayar</a>
+
+                        </td>
+                    }
+                    else if (rental.approval == "Ditolak")
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Tiada</a>
+
+                        </td>                        
+                    }
+                    else
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Selesai</a>
 
                         </td>
                     }
@@ -95,6 +116,28 @@
                     <td>
                         <span>@social.approval</span>
                     </td>
+
+                    @if (social.approval == "Lulus" && social.paymentId == null)
+                    {
+                        <td>
+                            <a asp-controller="Payment" asp-action="SocialServicePay" asp-route-id="@social.socialId" type="button" class="btn btn-primary">Bayar</a>
+
+                        </td>
+                    }
+                    else if (social.approval == "Ditolak")
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Tiada</a>
+
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Selesai</a>
+
+                        </td>
+                    }
                 </tr>
 
                 <!-- Modal for confirmation -->
@@ -141,6 +184,28 @@
                     <td>
                         <span>@classes.approval</span>
                     </td>
+
+                    @if (classes.approval == "Lulus" && classes.paymentId == null)
+                    {
+                        <td>
+                            <a asp-controller="Payment" asp-action="ClassServicePay" asp-route-id="@classes.classId" type="button" class="btn btn-primary">Bayar</a>
+
+                        </td>
+                    }
+                    else if (classes.approval == "Ditolak")
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Tiada</a>
+
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a type="button" class="btn btn-secondary">Selesai</a>
+
+                        </td>
+                    }
                 </tr>
 
                 <!-- Modal for confirmation -->
