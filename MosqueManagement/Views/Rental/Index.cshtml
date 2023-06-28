@@ -70,3 +70,27 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     })
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var startDateInput = $("#startDate");
+        var endDateInput = $("#endDate");
+
+        startDateInput.on("change", function () {
+            validateDateRange();
+        });
+
+        endDateInput.on("change", function () {
+            validateDateRange();
+        });
+
+        function validateDateRange() {
+            var startDate = new Date(startDateInput.val());
+            var endDate = new Date(endDateInput.val());
+
+            if (startDate > endDate) {
+                endDateInput.val(""); // Clear the endDate if it is earlier than the startDate
+            }
+        }
+    });
+</script>
