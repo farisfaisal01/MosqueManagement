@@ -24,6 +24,7 @@
         <span asp-validation-for="classAttachment" class="text-danger"></span>
     </div>
     <input asp-for="serviceId" type="hidden" id="serviceId" name="serviceId" value="@service.serviceId" />
+    <input asp-for="userId" type="hidden" id="userId" name="userId" value="@ViewBag.UserId" />
     <br />
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Mohon</button>
 

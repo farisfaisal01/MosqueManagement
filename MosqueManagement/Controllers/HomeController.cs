@@ -5,6 +5,7 @@ using MosqueManagement.Models;
 using MosqueManagement.Repository;
 using System.Diagnostics;
 using BCrypt.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace MosqueManagement.Controllers
 {
@@ -35,6 +36,7 @@ namespace MosqueManagement.Controllers
             {
                 if (user.role == "user")
                 {
+                    HttpContext.Session.SetInt32("UserId", (int)user.userId);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (user.role == "admin")
@@ -82,6 +84,8 @@ namespace MosqueManagement.Controllers
 
         public IActionResult Index()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             return View();
         }
 
@@ -92,6 +96,8 @@ namespace MosqueManagement.Controllers
 
         public IActionResult About()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             return View();
         }
 

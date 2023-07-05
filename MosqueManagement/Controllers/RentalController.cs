@@ -24,6 +24,8 @@ namespace MosqueManagement.Controllers
         }
         public async Task<IActionResult> Index(int id)
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             Service service = await _serviceRepository.GetByIdAsync(id);
 
             ViewData["Service"] = service;
