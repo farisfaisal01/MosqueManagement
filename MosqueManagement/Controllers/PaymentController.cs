@@ -64,7 +64,7 @@ namespace MosqueManagement.Controllers
             _paymentRepository.Add(payment);
 
             TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
-            return RedirectToAction("Success", "Document", new { id = payment.rentalId });
+            return RedirectToAction("RentalSuccess", "Document", new { id = payment.rentalId });
         }
 
         public async Task<IActionResult> SocialServicePay(int id)

@@ -16,6 +16,7 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 builder.Services.AddScoped<ISocialRepository, SocialRepository>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //DBContext Config
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
