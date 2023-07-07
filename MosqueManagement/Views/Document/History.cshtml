@@ -29,7 +29,7 @@
     <tbody>
         @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
         {
-            @if (rental.approval != null)
+            @if (rental.approval != null && rental.userId == ViewBag.UserId)
             {
                 <tr>
                     <td>

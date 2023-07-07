@@ -296,6 +296,8 @@ namespace MosqueManagement.Controllers
 
         public async Task<IActionResult> History()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             IEnumerable<Service> services = await _serviceRepository.GetAll();
             IEnumerable<Rental> rentals = await _rentalRepository.GetAll();
             IEnumerable<Social> socials = await _socialRepository.GetAll();

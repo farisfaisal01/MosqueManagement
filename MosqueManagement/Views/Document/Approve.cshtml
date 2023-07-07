@@ -22,7 +22,7 @@
     <tbody>
         @foreach (var rental in ViewData["Rentals"] as IEnumerable<Rental>)
         {
-            @if (rental.approval == null)
+        @if (rental.approval == null)
             {
             <tr>
                 <td>
@@ -102,6 +102,7 @@
                                 <input type="hidden" asp-for="@rental.rentalAttachment" value="@rental.rentalAttachment" />
                                 <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
                                 <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
+                                <input type="hidden" asp-for="@rental.userId" value="@rental.userId" />
                                 <input asp-for="@rental.approval" type="hidden" value="Lulus" />
                                 <button type="submit" class="btn btn-primary">Lulus</button>
                             </form>
@@ -143,6 +144,7 @@
                                 <input type="hidden" asp-for="@rental.rentalAttachment" value="@rental.rentalAttachment" />
                                 <input type="hidden" asp-for="@rental.remarks" value="@rental.remarks" />
                                 <input type="hidden" asp-for="@rental.serviceId" value="@rental.serviceId" />
+                                <input type="hidden" asp-for="@rental.userId" value="@rental.userId" />
                                 <input asp-for="@rental.approval" type="hidden" value="Ditolak" />
                                 <button type="submit" class="btn btn-danger">Tolak</button>
                             </form>
@@ -228,6 +230,7 @@
                                 <input type="hidden" asp-for="@social.socialAttachment" value="@social.socialAttachment" />
                                 <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
                                 <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
+                                <input type="hidden" asp-for="@social.userId" value="@social.userId" />
                                 <input asp-for="@social.approval" type="hidden" value="Lulus" />
                                 <button type="submit" class="btn btn-primary">Lulus</button>
                             </form>
@@ -265,6 +268,7 @@
                                 <input type="hidden" asp-for="@social.socialAttachment" value="@social.socialAttachment" />
                                 <input type="hidden" asp-for="@social.remarks" value="@social.remarks" />
                                 <input type="hidden" asp-for="@social.serviceId" value="@social.serviceId" />
+                                <input type="hidden" asp-for="@social.userId" value="@social.userId" />
                                 <input asp-for="@social.approval" type="hidden" value="Ditolak" />
                                 <button type="submit" class="btn btn-danger">Tolak</button>
                             </form>
@@ -346,6 +350,7 @@
                                 <input type="hidden" asp-for="@classes.classAttachment" value="@classes.classAttachment" />
                                 <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
                                 <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
+                                <input type="hidden" asp-for="@classes.userId" value="@classes.userId" />
                                 <input asp-for="@classes.approval" type="hidden" value="Lulus" />
                                 <button type="submit" class="btn btn-primary">Lulus</button>
                             </form>
@@ -381,6 +386,7 @@
                                 <input type="hidden" asp-for="@classes.classAttachment" value="@classes.classAttachment" />
                                 <input type="hidden" asp-for="@classes.remarks" value="@classes.remarks" />
                                 <input type="hidden" asp-for="@classes.serviceId" value="@classes.serviceId" />
+                                <input type="hidden" asp-for="@classes.userId" value="@classes.userId" />
                                 <input asp-for="@classes.approval" type="hidden" value="Ditolak" />
                                 <button type="submit" class="btn btn-danger">Tolak</button>
                             </form>

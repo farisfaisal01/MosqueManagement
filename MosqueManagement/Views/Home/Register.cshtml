@@ -27,7 +27,7 @@
     <input asp-for="phone" type="text" id="inputPhone" class="form-control" placeholder="Nombor Telefon" required>
     <span asp-validation-for="password" class="text-danger"></span>
 
-    <input asp-for="role" type="hidden" id="inputRole" class="form-control" value="admin" required>
+    <input asp-for="role" type="hidden" id="inputRole" class="form-control" value="user" required>
     <div class="checkbox mb-3">
         <label>
             <a href="@Url.Action("Login", "Home")">Log Masuk</a>
