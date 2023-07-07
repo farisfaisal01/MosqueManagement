@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MosqueManagement.Models
 {
@@ -20,5 +21,10 @@ namespace MosqueManagement.Models
         public string? rentalId { get; set; }
         public string? socialId { get; set; }
         public string? classId { get; set; }
+        public string? paymentAttachmentPath { get; set; }
+        [NotMapped]
+        public IFormFile? paymentAttachment { get; set; }
+        [NotMapped]
+        public IFormFile? updatedPaymentAttachment { get; set; }
     }
 }

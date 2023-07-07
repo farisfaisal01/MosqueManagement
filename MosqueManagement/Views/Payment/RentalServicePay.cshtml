@@ -4,33 +4,11 @@
     Rental rental = ViewData["Rental"] as Rental;
 }
 
-@*<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Tabung Masjid</h1>
-            <p class="lead text-body-secondary">Infaq harta anda hari ini!</p>
-        </div>
-    </div>
-</section>
-
-<div class="mb-4">
-    <div class="card p-4">
-        <figure class="p-3 mb-0">
-            <blockquote class="blockquote" style="text-align:center;">
-                <p>Apabila meninggalnya manusia itu, terputuslah segala amalannya melainkan tiga perkara iaitu sedekah jariah, ilmu yang bermanfaat atau anak soleh yang mendoakannya.</p>
-            </blockquote>
-            <figcaption class="blockquote-footer mb-0 text-body-secondary" style="text-align:center;">
-                Hadith Riwayat <cite title="Source Title">Muslim</cite>
-            </figcaption>
-        </figure>
-    </div>
-</div>*@
-
 <div class="row mb-3 text-center">
     <div class="col-sm-8 mb-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-4" style="text-align:center;">Ayuh Sedekah!</h5>
+                <h5 class="card-title mb-4" style="text-align:center;">Pembayaran Perkhidmatan</h5>
                 <div style="text-align:justify;">
                     <form method="post" asp-action="RentalServicePay" enctype="multipart/form-data">
                         <input type="hidden" asp-for="rentalId" value="@rental.rentalId" />
@@ -77,6 +55,14 @@
                             <div id="qrCodeContainer">
                                 <img src="https://donate.sols247.org/wp-content/uploads/2022/01/duitnow-qr-code-sols247.png" alt="DuitNow QR Code" width="250" height="250" style="border:2px solid black">
                             </div>
+                            <div class="form-group">
+                                <label asp-for="paymentAttachment" class="control-label">Lampiran</label>
+                                <div class="custom-file">
+                                    <input asp-for="paymentAttachment" type="file" class="custom-file-input" accept=".pdf" id="paymentAttachment" onchange="document.getElementById('PaymentAttachment').src = window.URL.createObjectURL(this.files[0]">
+                                    <label class="custom-file-label" for="paymentAttachment"></label>
+                                </div>
+                                <span asp-validation-for="paymentAttachment" class="text-danger"></span>
+                            </div>
                         </div>
                         <div id="bankTransferDetails" style="display: none;">
                             <!-- Bank Transfer form fields -->
@@ -99,6 +85,7 @@
                                     <option value="Agro Bank Berhad">Agro Bank Berhad</option>
                                 </select>
                             </div>
+                        </div>
                         <div id="cardPaymentDetails" style="display: none;">
                             <!-- Card Payment form fields -->
                             <div class="form-group">

@@ -5,6 +5,10 @@ using MosqueManagement.Data;
 using MosqueManagement.Interfaces;
 using MosqueManagement.Models;
 using MosqueManagement.Repository;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.IO.Pipes;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace MosqueManagement.Controllers
 {
@@ -16,7 +20,8 @@ namespace MosqueManagement.Controllers
         private readonly IServiceRepository _serviceRepository;
         private readonly ISocialRepository _socialRepository;
         private readonly IClassRepository _classRepository;
-        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IServiceRepository serviceRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IServiceRepository serviceRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _paymentRepository = paymentRepository;
@@ -24,6 +29,7 @@ namespace MosqueManagement.Controllers
             _socialRepository = socialRepository;
             _serviceRepository = serviceRepository;
             _classRepository = classRepository;
+            webHostEnvironment = webHost;
         }
         public IActionResult Index()
         {
@@ -36,6 +42,18 @@ namespace MosqueManagement.Controllers
             if (!ModelState.IsValid)
             {
                 return View(payment);
+            }
+            string fileName = null;
+            if (payment.paymentAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "PaymentFile");
+                fileName = Guid.NewGuid().ToString() + "_" + payment.paymentAttachment.FileName;
+                payment.paymentAttachmentPath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    payment.paymentAttachment.CopyTo(fileStream);
+                }
             }
             _paymentRepository.Add(payment);
             TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
@@ -60,6 +78,18 @@ namespace MosqueManagement.Controllers
             if (!ModelState.IsValid)
             {
                 return View(payment);
+            }
+            string fileName = null;
+            if (payment.paymentAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "PaymentFile");
+                fileName = Guid.NewGuid().ToString() + "_" + payment.paymentAttachment.FileName;
+                payment.paymentAttachmentPath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    payment.paymentAttachment.CopyTo(fileStream);
+                }
             }
             _paymentRepository.Add(payment);
 
@@ -86,6 +116,18 @@ namespace MosqueManagement.Controllers
             {
                 return View(payment);
             }
+            string fileName = null;
+            if (payment.paymentAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "PaymentFile");
+                fileName = Guid.NewGuid().ToString() + "_" + payment.paymentAttachment.FileName;
+                payment.paymentAttachmentPath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    payment.paymentAttachment.CopyTo(fileStream);
+                }
+            }
             _paymentRepository.Add(payment);
 
             TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
@@ -110,6 +152,18 @@ namespace MosqueManagement.Controllers
             if (!ModelState.IsValid)
             {
                 return View(payment);
+            }
+            string fileName = null;
+            if (payment.paymentAttachment != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "PaymentFile");
+                fileName = Guid.NewGuid().ToString() + "_" + payment.paymentAttachment.FileName;
+                payment.paymentAttachmentPath = fileName;
+                string filePath = Path.Combine(uploadsFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    payment.paymentAttachment.CopyTo(fileStream);
+                }
             }
             _paymentRepository.Add(payment);
 
