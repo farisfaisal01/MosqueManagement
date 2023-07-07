@@ -20,8 +20,9 @@ namespace MosqueManagement.Controllers
         private readonly ISocialRepository _socialRepository;
         private readonly IClassRepository _classRepository;
         private readonly IPaymentRepository _paymentRepository;
+        private readonly IUserRepository _userRepository;
 
-        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IPaymentRepository paymentRepository)
+        public DocumentController(ApplicationDbContext context, IServiceRepository serviceRepository, IWebHostEnvironment webHost, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IPaymentRepository paymentRepository, IUserRepository userRepository)
         {
             _context = context;
             _serviceRepository = serviceRepository;
@@ -30,6 +31,7 @@ namespace MosqueManagement.Controllers
             _socialRepository = socialRepository;
             _classRepository = classRepository;
             _paymentRepository = paymentRepository;
+            _userRepository = userRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -285,11 +287,13 @@ namespace MosqueManagement.Controllers
             IEnumerable<Rental> rentals = await _rentalRepository.GetAll();
             IEnumerable<Social> socials = await _socialRepository.GetAll();
             IEnumerable<Class> classes = await _classRepository.GetAll();
+            IEnumerable<User> users = await _userRepository.GetAll();
 
             ViewData["Services"] = services;
             ViewData["Rentals"] = rentals;
             ViewData["Socials"] = socials;
             ViewData["Classes"] = classes;
+            ViewData["Users"] = users;
 
             return View();
         }

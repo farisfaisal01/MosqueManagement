@@ -15,6 +15,7 @@
     <thead>
         <tr>
             <th scope="col">Nama Servis</th>
+            <th scope="col">Nama Pemohon</th>
             <th scope="col">Perincian</th>
             <th scope="col">Kelulusan</th>
         </tr>
@@ -31,6 +32,15 @@
                             if (service != null)
                             {
                                 <span>@service.serviceName</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            var user = ((IEnumerable<User>)ViewData["Users"]).FirstOrDefault(u => u.userId == rental.userId);
+                            if (user != null)
+                            {
+                                <span>@user.name</span>
                             }
                         }
                     </td>
