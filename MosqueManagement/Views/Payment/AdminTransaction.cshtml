@@ -1,0 +1,54 @@
+﻿@{
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Transaksi</h1>
+            <p class="lead text-body-secondary">Lihat aliran kewangan perkhidmatan Masjid!</p>
+        </div>
+    </div>
+</section>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Pembayar</th>
+            <th scope="col">Jumlah Bayaran</th>
+            <th scope="col">Jenis Transaksi</th>
+            <th scope="col">Tujuan Transaksi</th>
+            <th scope="col">Rujukan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in ViewData["Payments"] as IEnumerable<Payment>)
+        {
+            <tr>
+                <td>
+                    <span>@payment.paymentName</span>
+                </td>
+                <td>
+                    <span>RM @payment.paymentAmount</span>
+                </td>
+                <td>
+                    <span>@payment.paymentMethod</span>
+                </td>
+                <td>
+                    <span>@payment.paymentPurpose</span>
+                </td>
+                @if(@payment.paymentMethod == "DuitNowQRPay")
+                {
+                    <td>
+                        <a href="@Url.Action("Download", "Payment", new { id = payment.paymentId })" class="btn btn-primary" download>Muat Turun PDF</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a type="button" class="btn btn-secondary">Tiada Dokumen</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

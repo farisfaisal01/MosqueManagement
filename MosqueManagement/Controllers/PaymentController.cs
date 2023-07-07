@@ -170,5 +170,31 @@ namespace MosqueManagement.Controllers
             TempData["CreateSuccessMessage"] = "Pembayaran anda berjaya. Terima kasih!";
             return RedirectToAction("ClassSuccess", "Document", new { id = payment.classId });
         }
+        public async Task<IActionResult> AdminTransaction()
+        {
+            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
+
+            ViewData["Payments"] = payments;
+
+            return View();
+        }
+
+        public async Task<IActionResult> Download(int id)
+        {
+            Payment payment = await _paymentRepository.GetByIdAsync(id);
+
+            if (payment != null && !string.IsNullOrEmpty(payment.paymentAttachmentPath))
+            {
+                string filePath = Path.Combine(webHostEnvironment.WebRootPath, "PaymentFile", payment.paymentAttachmentPath);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    return File(fileStream, "application/octet-stream", payment.paymentAttachmentPath);
+                }
+            }
+
+            return NotFound();
+        }
     }
 }

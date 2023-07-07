@@ -86,7 +86,7 @@
                                     <p>Tarikh Mula: @rental.startDate</p>
                                     <p>Tarikh Tamat: @rental.endDate</p>
                                     <p>Nota: @rental.remarks</p>
-                                    <p>Lampiran:<a href="@Url.Action("Download", "Document", new { id = rental.rentalId })" class="btn btn-primary" download>Download PDF</a></p>
+                                    <p>Lampiran:<a href="@Url.Action("Download", "Document", new { id = rental.rentalId })" class="btn btn-primary" download>Muat Turun PDF</a></p>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -195,14 +195,12 @@
                     {
                         <td>
                             <a type="button" class="btn btn-secondary">Tiada</a>
-
                         </td>
                     }
                     else
                     {
                         <td>
                             <a type="button" class="btn btn-secondary">Selesai</a>
-
                         </td>
                     }
                 </tr>
