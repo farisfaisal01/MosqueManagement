@@ -37,7 +37,7 @@
                             var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == rental.serviceId);
                             if (service != null)
                             {
-                                <span>@service.serviceName</span>
+                                <span>@service.serviceName ( RM @service.servicePrice )</span>
                             }
                         }
                     </td>
@@ -107,7 +107,7 @@
                             var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == social.serviceId);
                             if (service != null)
                             {
-                                <span>@service.serviceName</span>
+                                <span>@service.serviceName ( RM @service.servicePrice )</span>
                             }
                         }
                     </td>
@@ -175,7 +175,7 @@
                             var service = ((IEnumerable<Service>)ViewData["Services"]).FirstOrDefault(s => s.serviceId == classes.serviceId);
                             if (service != null)
                             {
-                                <span>@service.serviceName</span>
+                                <span>@service.serviceName ( RM @service.servicePrice )</span>
                             }
                         }
                     </td>

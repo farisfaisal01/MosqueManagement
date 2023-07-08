@@ -1,6 +1,7 @@
 ﻿@model Service
 @{
     ViewData["Title"] = "Tambah Servis";
+    Layout = "../Shared/_LayoutAdmin.cshtml";
 }
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
@@ -37,7 +38,6 @@
         <label asp-for="serviceAttachment" class="control-label">Gambar Servis</label>
         <div class="custom-file">
             <input asp-for="serviceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="serviceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]" required autofocus>
-            <label class="custom-file-label" for="serviceAttachment"></label>
         </div>
         <span asp-validation-for="serviceAttachment" class="text-danger"></span>
     </div>

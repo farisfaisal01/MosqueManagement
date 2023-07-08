@@ -1,6 +1,7 @@
 ﻿@model HumanResource
 @{
     ViewData["Title"] = "Tambah Ahli";
+    Layout = "../Shared/_LayoutAdmin.cshtml";
 }
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
@@ -21,14 +22,13 @@
     </div>
     <div class="form-group">
         <label asp-for="staffContact">Nombor Telefon Ahli</label>
-        <input asp-for="staffContact" class="form-control" placeholder="Isi nombor telefon ahli" required autofocus>
+        <input asp-for="staffContact" id="inputContact" class="form-control" placeholder="Isi nombor telefon ahli" required autofocus>
         <span asp-validation-for="staffContact" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="staffImage" class="control-label">Gambar Ahli</label>
         <div class="custom-file">
             <input asp-for="staffImage" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="staffImage" onchange="document.getElementById('StaffImage').src = window.URL.createObjectURL(this.files[0]" required autofocus>
-            <label class="custom-file-label" for="staffImage"></label>
         </div>
         <span asp-validation-for="staffImage" class="text-danger"></span>
     </div>
@@ -63,4 +63,11 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     })
+</script>
+<script>
+    // Restrict input field to accept only numeric values and limit to 11 digits
+    var phoneInput = document.getElementById("inputContact");
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 11);
+    });
 </script>
