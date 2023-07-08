@@ -7,23 +7,23 @@
 <form method="post" action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="eventDate">Tarikh Program</label>
-        <input asp-for="eventDate" type="date" id="eventDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="eventDate" class="form-control" placeholder="Isi tarikh program">
+        <input asp-for="eventDate" type="date" id="eventDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="eventDate" class="form-control" placeholder="Isi tarikh program" required autofocus>
         <span asp-validation-for="eventDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="eventTime">Masa Program</label>
-        <input asp-for="eventTime" type="time" id="eventTime" name="eventTime" class="form-control" placeholder="Isi masa program">
+        <input asp-for="eventTime" type="time" id="eventTime" name="eventTime" class="form-control" placeholder="Isi masa program" required autofocus>
         <span asp-validation-for="eventTime" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="remarks">Nota Kepada Pengurusan</label>
-        <input asp-for="remarks" type="text" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+        <input asp-for="remarks" type="text" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan" required autofocus>
         <span asp-validation-for="remarks" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="socialAttachment" class="control-label">Lampiran</label>
+        <label asp-for="socialAttachment" class="control-label">Lampiran/Kertas Kerja</label>
         <div class="custom-file">
-            <input asp-for="socialAttachment" type="file" class="custom-file-input" accept=".pdf" id="serviceAttachment" onchange="document.getElementById('SocialAttachment').src = window.URL.createObjectURL(this.files[0]">
+            <input asp-for="socialAttachment" type="file" class="custom-file-input" accept=".pdf" id="serviceAttachment" onchange="document.getElementById('SocialAttachment').src = window.URL.createObjectURL(this.files[0]" required autofocus>
         </div>
         <span asp-validation-for="socialAttachment" class="text-danger"></span>
     </div>

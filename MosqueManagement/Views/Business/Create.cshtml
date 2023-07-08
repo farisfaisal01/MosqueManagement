@@ -6,23 +6,23 @@
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="marketName">Nama Perniagaan</label>
-        <input asp-for="marketName" class="form-control" placeholder="Isi nama perniagaan">
+        <input asp-for="marketName" class="form-control" placeholder="Isi nama perniagaan" required autofocus>
         <span asp-validation-for="marketName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="marketDescription">Penerangan Perniagaan</label>
-        <input asp-for="marketDescription" class="form-control" placeholder="Isi penerangan perniagaan">
+        <input asp-for="marketDescription" class="form-control" placeholder="Isi penerangan perniagaan" required autofocus>
         <span asp-validation-for="marketDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="marketContact">Nombor Telefon Perniagaan</label>
-        <input asp-for="marketContact" class="form-control" placeholder="Isi nombor telefon perniagaan">
+        <input asp-for="marketContact" class="form-control" placeholder="Isi nombor telefon perniagaan" required autofocus>
         <span asp-validation-for="marketContact" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="marketAttachment" class="control-label">Gambar Perniagaan</label>
         <div class="custom-file">
-            <input asp-for="marketAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="marketAttachment" onchange="document.getElementById('MarketImage').src = window.URL.createObjectURL(this.files[0]">
+            <input asp-for="marketAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="marketAttachment" onchange="document.getElementById('MarketImage').src = window.URL.createObjectURL(this.files[0]" required autofocus>
             <label class="custom-file-label" for="marketAttachment"></label>
         </div>
         <span asp-validation-for="marketAttachment" class="text-danger"></span>

@@ -5,8 +5,7 @@
 }
 
 <form class="form-signin" method="post" asp-action="Register">
-    @*<img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">*@
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal text-center">Pendaftaran</h1>
     <label asp-for="name" class="sr-only">Nama</label>
     <input asp-for="name" type="text" id="inputName" class="form-control" placeholder="Nama" required autofocus>
     <span asp-validation-for="name" class="text-danger"></span>
@@ -20,19 +19,32 @@
     <span asp-validation-for="email" class="text-danger"></span>
 
     <label asp-for="password" class="sr-only">Password</label>
-    <input asp-for="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input asp-for="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus>
     <span asp-validation-for="password" class="text-danger"></span>
 
     <label asp-for="phone" class="sr-only">Nombor Telefon</label>
-    <input asp-for="phone" type="text" id="inputPhone" class="form-control" placeholder="Nombor Telefon" required>
-    <span asp-validation-for="password" class="text-danger"></span>
+    <input asp-for="phone" type="tel" id="inputPhone" class="form-control" placeholder="Nombor Telefon" required autofocus>
+    <span asp-validation-for="phone" class="text-danger"></span>
 
-    <input asp-for="role" type="hidden" id="inputRole" class="form-control" value="user" required>
-    <div class="checkbox mb-3">
-        <label>
-            <a href="@Url.Action("Login", "Home")">Log Masuk</a>
-        </label>
+    <input asp-for="role" type="hidden" id="inputRole" class="form-control" value="user" required autofocus>
+    <br />
+    <div class="text-center">
+        <div class="checkbox mb-3">
+            <label>
+                <a href="@Url.Action("Login", "Home")">Log Masuk</a>
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Daftar</button>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Daftar</button>
+
     <p class="mt-5 mb-3 text-muted">&copy; 2023 - MosqueManagement</p>
 </form>
+
+<script>
+    // Restrict input field to accept only numeric values and limit to 11 digits
+    var phoneInput = document.getElementById("inputPhone");
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 11);
+    });
+</script>
+

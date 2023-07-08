@@ -16,32 +16,32 @@
                         <input type="hidden" asp-for="paymentId" />
                         <div class="form-group">
                             <label asp-for="paymentName">Nama</label>
-                            <input asp-for="paymentName" class="form-control" placeholder="Isi nama anda" value=@user.name>
+                            <input asp-for="paymentName" class="form-control" placeholder="Isi nama anda" value=@user.name required autofocus>
                             <span asp-validation-for="paymentName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentEmail">Email</label>
-                            <input asp-for="paymentEmail" class="form-control" placeholder="Isi email anda" value=@user.email>
+                            <input asp-for="paymentEmail" class="form-control" placeholder="Isi email anda" value=@user.email required autofocus>
                             <span asp-validation-for="paymentEmail" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentContact">Nombor Telefon</label>
-                            <input asp-for="paymentContact" class="form-control" placeholder="Isi nombor telefon anda" value=@user.phone>
+                            <input asp-for="paymentContact" id="inputPaymentContact" class="form-control" placeholder="Isi nombor telefon anda" value=@user.phone required autofocus>
                             <span asp-validation-for="paymentContact" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentAmount">Jumlah Bayaran</label>
-                            <input asp-for="paymentAmount" class="form-control" placeholder="Isi jumlah bayaran anda">
+                            <input asp-for="paymentAmount" type="number" class="form-control" placeholder="Isi jumlah bayaran anda" required autofocus>
                             <span asp-validation-for="paymentAmount" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentPurpose">Tujuan Bayaran</label>
-                            <input asp-for="paymentPurpose" class="form-control" placeholder="Isi tujuan pembayaran anda">
+                            <input asp-for="paymentPurpose" class="form-control" placeholder="Isi tujuan pembayaran anda" required autofocus>
                             <span asp-validation-for="paymentPurpose" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label for="paymentMethod">Pilih kaedah pembayaran:</label>
-                            <select name="paymentMethod" id="paymentMethod" class="form-control">
+                            <select name="paymentMethod" id="paymentMethod" class="form-control" required autofocus>
                                 <option value="" disabled selected hidden>Pilih kaedah pembayaran</option>
                                 <option value="DuitNowQRPay">DuitNow QR Pay</option>
                                 <option value="BankTransfer">Bank Transfer</option>
@@ -91,25 +91,26 @@
                             <!-- Card Payment form fields -->
                             <div class="form-group">
                                 <label asp-for="paymentCardNumber">Nombor Kad Kredit/Debit</label>
-                                <input asp-for="paymentCardNumber" class="form-control" placeholder="Isi nombor kad kredit/debit anda">
+                                <input asp-for="paymentCardNumber" id="inputCard" class="form-control" placeholder="Isi nombor kad kredit/debit anda">
                                 <span asp-validation-for="paymentCardNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="paymentCardCVC">CVC</label>
-                                    <input asp-for="paymentCardCVC" class="form-control" placeholder="CVC">
+                                <input asp-for="paymentCardCVC" id="inputCVC" class="form-control" placeholder="CVC">
                                 <span asp-validation-for="paymentCardCVC" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="paymentCardExpireMonth">Bulan Tamat Tempoh Kad</label>
-                                <input asp-for="paymentCardExpireMonth" class="form-control" placeholder="Bulan">
+                                <input asp-for="paymentCardExpireMonth" type="number" class="form-control" placeholder="Bulan" min="1" max="12">
                                 <span asp-validation-for="paymentCardExpireMonth" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                    <label asp-for="paymentCardExpireYear">Tahun Tamat Tempoh Kad</label>
-                                <input asp-for="paymentCardExpireYear" class="form-control" placeholder="Tahun">
+                                <label asp-for="paymentCardExpireYear">Tahun Tamat Tempoh Kad</label>
+                                <input asp-for="paymentCardExpireYear" class="form-control" placeholder="Tahun" type="number" min="@DateTime.Now.Year">
                                 <span asp-validation-for="paymentCardExpireYear" class="text-danger"></span>
                             </div>
-                            </div>
+
+                        </div>
                         <br />
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" id="paymentButton">Bayar</button>
 
@@ -167,3 +168,32 @@
         </div>
     </div>
 </div>
+<script>
+    // Restrict input field to accept only numeric values and limit to 11 digits
+    var phoneInput = document.getElementById("inputPaymentContact");
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 11);
+    });
+</script>
+<script>
+    var phoneInput = document.getElementById("inputCard");
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 16);
+    });
+</script>
+<script>
+    var phoneInput = document.getElementById("inputCVC");
+    phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 3);
+    });
+</script>
+<script type="text/javascript">
+    var maxYear = new Date().getFullYear() + 4;
+    var cardExpireYearInput = document.getElementById("paymentCardExpireYear");
+
+    cardExpireYearInput.addEventListener("input", function () {
+        if (this.value > maxYear) {
+            this.value = maxYear;
+        }
+    });
+</script>

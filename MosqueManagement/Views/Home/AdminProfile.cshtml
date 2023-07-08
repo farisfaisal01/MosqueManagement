@@ -1,5 +1,6 @@
 ﻿@model User
 @{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
 }
 @if (TempData.ContainsKey("UpdateSuccessMessage"))
 {
@@ -13,27 +14,27 @@
 
     <div class="form-group">
         <label asp-for="name">Nama</label>
-        <input asp-for="name" class="form-control" placeholder="Isi nama">
+        <input asp-for="name" class="form-control" placeholder="Isi nama" required autofocus>
         <span asp-validation-for="name" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="username">Nama Pengguna</label>
-        <input asp-for="username" class="form-control" placeholder="Isi nama pengguna">
+        <input asp-for="username" class="form-control" placeholder="Isi nama pengguna" required autofocus>
         <span asp-validation-for="username" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="email">Email</label>
-        <input asp-for="email" class="form-control" placeholder="Isi email">
+        <input asp-for="email" class="form-control" placeholder="Isi email" required autofocus>
         <span asp-validation-for="email" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="phone">Nombor Telefon</label>
-        <input asp-for="phone" id="inputPhone" class="form-control" placeholder="Isi nombor telefon">
+        <input asp-for="phone" id="inputPhone" class="form-control" placeholder="Isi nombor telefon" required autofocus>
         <span asp-validation-for="phone" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="password">Kata Laluan</label>
-        <input asp-for="password" class="form-control" placeholder="Isi kata laluan">
+        <input asp-for="password" class="form-control" placeholder="Isi kata laluan" required autofocus>
         <span asp-validation-for="password" class="text-danger"></span>
     </div>
     @*<input type="hidden" asp-for="password" value=@Model.password />*@
@@ -77,3 +78,4 @@
         this.value = this.value.replace(/\D/g, "").slice(0, 11);
     });
 </script>
+

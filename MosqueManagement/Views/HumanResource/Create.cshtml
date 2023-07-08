@@ -6,28 +6,28 @@
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="positionTitle">Jawatan</label>
-        <input asp-for="positionTitle" class="form-control" placeholder="Isi jawatan ahli">
+        <input asp-for="positionTitle" class="form-control" placeholder="Isi jawatan ahli" required autofocus>
         <span asp-validation-for="positionTitle" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="positionDescription">Penerangan Jawatan</label>
-        <input asp-for="positionDescription" class="form-control" placeholder="Isi penerangan jawatan ahli">
+        <input asp-for="positionDescription" class="form-control" placeholder="Isi penerangan jawatan ahli" required autofocus>
         <span asp-validation-for="positionDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="staffName">Nama Ahli</label>
-        <input asp-for="staffName" class="form-control" placeholder="Isi nama ahli">
+        <input asp-for="staffName" class="form-control" placeholder="Isi nama ahli" required autofocus>
         <span asp-validation-for="staffName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="staffContact">Nombor Telefon Ahli</label>
-        <input asp-for="staffContact" class="form-control" placeholder="Isi nombor telefon ahli">
+        <input asp-for="staffContact" class="form-control" placeholder="Isi nombor telefon ahli" required autofocus>
         <span asp-validation-for="staffContact" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="staffImage" class="control-label">Gambar Ahli</label>
         <div class="custom-file">
-            <input asp-for="staffImage" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="staffImage" onchange="document.getElementById('StaffImage').src = window.URL.createObjectURL(this.files[0]">
+            <input asp-for="staffImage" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="staffImage" onchange="document.getElementById('StaffImage').src = window.URL.createObjectURL(this.files[0]" required autofocus>
             <label class="custom-file-label" for="staffImage"></label>
         </div>
         <span asp-validation-for="staffImage" class="text-danger"></span>

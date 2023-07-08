@@ -7,28 +7,27 @@
 
     <div class="form-group">
         <label asp-for="serviceName">Nama Servis</label>
-        <input asp-for="serviceName" class="form-control" placeholder="Isi nama servis">
+        <input asp-for="serviceName" class="form-control" placeholder="Isi nama servis" required autofocus>
         <span asp-validation-for="serviceName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="serviceDescription">Deskripsi Servis</label>
-        <input asp-for="serviceDescription" class="form-control" placeholder="Isi deskripsi servis">
+        <input asp-for="serviceDescription" class="form-control" placeholder="Isi deskripsi servis" required autofocus>
         <span asp-validation-for="serviceDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="servicePrice">Harga Servis</label>
-        <input asp-for="servicePrice" class="form-control" placeholder="Isi harga servis">
+        <input asp-for="servicePrice" class="form-control" placeholder="Isi harga servis" required autofocus>
         <span asp-validation-for="servicePrice" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="serviceEquipments">Peralatan Servis</label>
-        <input asp-for="serviceEquipments" class="form-control" placeholder="Isi peralatan servis">
+        <input asp-for="serviceEquipments" class="form-control" placeholder="Isi peralatan servis" required autofocus>
         <span asp-validation-for="serviceEquipments" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="serviceCategory">Kategori Servis</label>
-        <select asp-for="serviceCategory" class="form-control" placeholder="Isi kategori servis">
-            >
+        <select asp-for="serviceCategory" class="form-control" placeholder="Isi kategori servis" required autofocus>
             <option>Sewaan</option>
             <option>Sosial</option>
             <option>Kelas</option>
@@ -38,7 +37,7 @@
     <div class="form-group">
         <label asp-for="updatedServiceAttachment" class="control-label">Gambar Perniagaan</label>
         <div class="custom-file">
-            <input asp-for="updatedServiceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="updatedServiceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]">
+            <input asp-for="updatedServiceAttachment" type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" id="updatedServiceAttachment" onchange="document.getElementById('ServiceImage').src = window.URL.createObjectURL(this.files[0]" required autofocus>
         </div>
         <span asp-validation-for="updatedServiceAttachment" class="text-danger"></span>
     </div>

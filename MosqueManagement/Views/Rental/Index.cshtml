@@ -7,33 +7,33 @@
 <form method="post" action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="eventName">Nama Program</label>
-        <input asp-for="eventName" type="text" id="eventName" name="eventName" class="form-control" placeholder="Isi nama program">
+        <input asp-for="eventName" type="text" id="eventName" name="eventName" class="form-control" placeholder="Isi nama program" required autofocus>
         <span asp-validation-for="eventName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="eventDescription">Penerangan Program</label>
-        <input asp-for="eventDescription" type="text" id="eventDescription" name="eventDescription" class="form-control" placeholder="Isi penerangan program">
+        <input asp-for="eventDescription" type="text" id="eventDescription" name="eventDescription" class="form-control" placeholder="Isi penerangan program" required autofocus>
         <span asp-validation-for="eventDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="startDate">Tarikh Mula</label>
-        <input asp-for="startDate" type="date" id="startDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="startDate" class="form-control" placeholder="Isi tarikh mula program">
+        <input asp-for="startDate" type="date" id="startDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="startDate" class="form-control" placeholder="Isi tarikh mula program" required autofocus>
         <span asp-validation-for="startDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="endDate">Tarikh Tamat</label>
-        <input asp-for="endDate" type="date" id="endDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="endDate" class="form-control" placeholder="Isi tarikh tamat program">
+        <input asp-for="endDate" type="date" id="endDate" min="@DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")" name="endDate" class="form-control" placeholder="Isi tarikh tamat program" required autofocus>
         <span asp-validation-for="endDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="remarks">Nota Kepada Pengurusan</label>
-        <input asp-for="remarks" type="text" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan">
+        <input asp-for="remarks" type="text" id="remarks" name="remarks" class="form-control" placeholder="Isi nota kepada pengurusan" required autofocus>
         <span asp-validation-for="remarks" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="rentalAttachment" class="control-label">Lampiran</label>
+        <label asp-for="rentalAttachment" class="control-label">Lampiran/Kertas Kerja</label>
         <div class="custom-file">
-            <input asp-for="rentalAttachment" type="file" class="custom-file-input" accept=".pdf" id="rentalAttachment" onchange="document.getElementById('RentalAttachment').src = window.URL.createObjectURL(this.files[0]">
+            <input asp-for="rentalAttachment" type="file" class="custom-file-input" accept=".pdf" id="rentalAttachment" onchange="document.getElementById('RentalAttachment').src = window.URL.createObjectURL(this.files[0]" required autofocus>
         </div>
         <span asp-validation-for="rentalAttachment" class="text-danger"></span>
     </div>
