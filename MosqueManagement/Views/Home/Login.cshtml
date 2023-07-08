@@ -5,13 +5,13 @@
 }
 
 <form class="form-signin" method="post" asp-action="Login">
-    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label asp-for="email" class="sr-only">Email address</label>
-    <input asp-for="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    @*<img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">*@
+    <h1 class="h3 mb-3 font-weight-normal">Sila Log Masuk</h1>
+    <label asp-for="email" class="sr-only">Email</label>
+    <input asp-for="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
     <span asp-validation-for="email" class="text-danger"></span>
-    <label asp-for="password" class="sr-only">Password</label>
-    <input asp-for="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <label asp-for="password" class="sr-only">Kata Laluan</label>
+    <input asp-for="password" type="password" id="inputPassword" class="form-control" placeholder="Kata Laluan" required>
     <span asp-validation-for="password" class="text-danger"></span>
     <div class="checkbox mb-3">
         <label>
