@@ -6,6 +6,8 @@ using MosqueManagement.Repository;
 using System.Diagnostics;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace MosqueManagement.Controllers
 {
@@ -117,6 +119,40 @@ namespace MosqueManagement.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Home");
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            User user = await _userRepository.GetByIdAsync(ViewBag.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(User user)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            if (ViewBag.UserId != user.userId)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+
+            _userRepository.Update(user);
+            
+
+            TempData["UpdateSuccessMessage"] = "Perincian profil berjaya diubah!";
+            return RedirectToAction("Profile");
         }
 
     }

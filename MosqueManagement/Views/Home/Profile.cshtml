@@ -1,0 +1,71 @@
+﻿@model User
+@{
+}
+@if (TempData.ContainsKey("UpdateSuccessMessage"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["UpdateSuccessMessage"]
+    </div>
+}
+
+<form method="post" asp-action="Profile" enctype="multipart/form-data">
+    <input type="hidden" asp-for="userId" />
+
+    <div class="form-group">
+        <label asp-for="name">Nama</label>
+        <input asp-for="name" class="form-control" placeholder="Isi nama">
+        <span asp-validation-for="name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="username">Nama Pengguna</label>
+        <input asp-for="username" class="form-control" placeholder="Isi nama pengguna">
+        <span asp-validation-for="username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="email">Email</label>
+        <input asp-for="email" class="form-control" placeholder="Isi email">
+        <span asp-validation-for="email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="phone">Nombor Telefon</label>
+        <input asp-for="phone" class="form-control" placeholder="Isi nombor telefon">
+        <span asp-validation-for="phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="password">Kata Laluan</label>
+        <input asp-for="password" class="form-control" placeholder="Isi kata laluan">
+        <span asp-validation-for="password" class="text-danger"></span>
+    </div>
+    @*<input type="hidden" asp-for="password" value=@Model.password />*@
+    <input type="hidden" asp-for="role" value=@Model.role />
+    <br />
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Sunting</button>
+
+    <!-- Modal for confirmation -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Sahkan Perubahan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Anda akan menyunting profil anda. Adakah anda pasti?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Sahkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    })
+</script>
