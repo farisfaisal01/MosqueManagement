@@ -34,7 +34,6 @@
         <label asp-for="rentalAttachment" class="control-label">Lampiran</label>
         <div class="custom-file">
             <input asp-for="rentalAttachment" type="file" class="custom-file-input" accept=".pdf" id="rentalAttachment" onchange="document.getElementById('RentalAttachment').src = window.URL.createObjectURL(this.files[0]">
-            <label class="custom-file-label" for="rentalAttachment"></label>
         </div>
         <span asp-validation-for="rentalAttachment" class="text-danger"></span>
     </div>

@@ -24,7 +24,6 @@
         <label asp-for="socialAttachment" class="control-label">Lampiran</label>
         <div class="custom-file">
             <input asp-for="socialAttachment" type="file" class="custom-file-input" accept=".pdf" id="serviceAttachment" onchange="document.getElementById('SocialAttachment').src = window.URL.createObjectURL(this.files[0]">
-            <label class="custom-file-label" for="socialAttachment"></label>
         </div>
         <span asp-validation-for="socialAttachment" class="text-danger"></span>
     </div>

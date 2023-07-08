@@ -1,6 +1,7 @@
 ﻿@model Payment
 @{
     ViewData["Title"] = "Tabung Masjid";
+    User user = ViewData["User"] as User;
 }
 
 <section class="py-5 text-center container">
@@ -41,17 +42,17 @@
                     <form method="post" asp-action="Index" enctype="multipart/form-data">
                         <div class="form-group">
                             <label asp-for="paymentName">Nama</label>
-                            <input asp-for="paymentName" class="form-control" placeholder="Isi nama anda">
+                            <input asp-for="paymentName" class="form-control" placeholder="Isi nama anda" value=@user.name>
                             <span asp-validation-for="paymentName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentEmail">Email</label>
-                            <input asp-for="paymentEmail" class="form-control" placeholder="Isi email anda">
+                            <input asp-for="paymentEmail" class="form-control" placeholder="Isi email anda" value=@user.email>
                             <span asp-validation-for="paymentEmail" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="paymentContact">Nombor Telefon</label>
-                            <input asp-for="paymentContact" class="form-control" placeholder="Isi nombor telefon anda">
+                            <input asp-for="paymentContact" class="form-control" placeholder="Isi nombor telefon anda" value=@user.phone>
                             <span asp-validation-for="paymentContact" class="text-danger"></span>
                         </div>
                         <div class="form-group">

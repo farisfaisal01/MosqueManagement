@@ -16,7 +16,6 @@ namespace MosqueManagement.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<HumanResource> HumanResources { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Market> Markets { get; set; }
         public DbSet<Payment> Payments { get; set; }
     }

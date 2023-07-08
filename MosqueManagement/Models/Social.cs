@@ -27,9 +27,5 @@ namespace MosqueManagement.Models
         [ForeignKey("Payment")]
         public int? paymentId { get; set; }
         public Payment? Payment { get; set; }
-
-        [ForeignKey("Schedule")]
-        public int? scheduleId { get; set; }
-        public Schedule? Schedule { get; set; }
     }
 }

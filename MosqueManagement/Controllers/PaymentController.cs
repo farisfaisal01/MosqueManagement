@@ -9,6 +9,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.IO.Pipes;
 using Microsoft.AspNetCore.StaticFiles;
+using MosqueManagement.Migrations;
 
 namespace MosqueManagement.Controllers
 {
@@ -20,8 +21,9 @@ namespace MosqueManagement.Controllers
         private readonly IServiceRepository _serviceRepository;
         private readonly ISocialRepository _socialRepository;
         private readonly IClassRepository _classRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IServiceRepository serviceRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IWebHostEnvironment webHost)
+        public PaymentController(ApplicationDbContext context, IPaymentRepository paymentRepository, IServiceRepository serviceRepository, IRentalRepository rentalRepository, ISocialRepository socialRepository, IClassRepository classRepository, IUserRepository userRepository, IWebHostEnvironment webHost)
         {
             _context = context;
             _paymentRepository = paymentRepository;
@@ -29,15 +31,20 @@ namespace MosqueManagement.Controllers
             _socialRepository = socialRepository;
             _serviceRepository = serviceRepository;
             _classRepository = classRepository;
+            _userRepository = userRepository;
             webHostEnvironment = webHost;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            User user = await _userRepository.GetByIdAsync(ViewBag.UserId);
+            ViewData["User"] = user;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Payment payment)
+        public async Task<IActionResult> Index(MosqueManagement.Models.Payment payment)
         {
             if (!ModelState.IsValid)
             {
@@ -62,6 +69,10 @@ namespace MosqueManagement.Controllers
 
         public async Task<IActionResult> RentalServicePay(int id)
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            User user = await _userRepository.GetByIdAsync(ViewBag.UserId);
+            ViewData["User"] = user;
             Rental rental = await _rentalRepository.GetByIdAsync(id);
 
             if (rental == null)
@@ -73,7 +84,7 @@ namespace MosqueManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RentalServicePay(Payment payment)
+        public async Task<IActionResult> RentalServicePay(MosqueManagement.Models.Payment payment)
         {
             if (!ModelState.IsValid)
             {
@@ -99,6 +110,10 @@ namespace MosqueManagement.Controllers
 
         public async Task<IActionResult> SocialServicePay(int id)
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            User user = await _userRepository.GetByIdAsync(ViewBag.UserId);
+            ViewData["User"] = user;
             Social social = await _socialRepository.GetByIdAsync(id);
 
             if (social == null)
@@ -110,7 +125,7 @@ namespace MosqueManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SocialServicePay(Payment payment)
+        public async Task<IActionResult> SocialServicePay(MosqueManagement.Models.Payment payment)
         {
             if (!ModelState.IsValid)
             {
@@ -136,6 +151,10 @@ namespace MosqueManagement.Controllers
 
         public async Task<IActionResult> ClassServicePay(int id)
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
+            User user = await _userRepository.GetByIdAsync(ViewBag.UserId);
+            ViewData["User"] = user;
             Class claases = await _classRepository.GetByIdAsync(id);
 
             if (claases == null)
@@ -147,7 +166,7 @@ namespace MosqueManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ClassServicePay(Payment payment)
+        public async Task<IActionResult> ClassServicePay(MosqueManagement.Models.Payment payment)
         {
             if (!ModelState.IsValid)
             {
@@ -172,7 +191,7 @@ namespace MosqueManagement.Controllers
         }
         public async Task<IActionResult> AdminTransaction()
         {
-            IEnumerable<Payment> payments = await _paymentRepository.GetAll();
+            IEnumerable<MosqueManagement.Models.Payment> payments = await _paymentRepository.GetAll();
 
             ViewData["Payments"] = payments;
 
@@ -181,7 +200,7 @@ namespace MosqueManagement.Controllers
 
         public async Task<IActionResult> Download(int id)
         {
-            Payment payment = await _paymentRepository.GetByIdAsync(id);
+            MosqueManagement.Models.Payment payment = await _paymentRepository.GetByIdAsync(id);
 
             if (payment != null && !string.IsNullOrEmpty(payment.paymentAttachmentPath))
             {
